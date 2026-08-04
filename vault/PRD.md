@@ -1,11 +1,23 @@
 ---
 title: NearMiss NYC — Source of Truth PRD
+aliases:
+  - NearMiss NYC PRD
+  - Product Source of Truth
 tags:
-  - product
-status: active
-version: 2.0.0
+  - nearmiss-nyc
+  - prd
+  - source-of-truth
+  - computer-vision
+  - vision-agent
+  - hackathon
+status: approved-for-hackathon-execution
+version: 2.1.0
 owner: Ajit
-supersedes: 1.0.0
+last_updated: 2026-08-04
+supersedes: 2.0.0
+event: NYC Vision Hack v.2 — Live Feeds, Open Data
+submission_deadline: 2026-08-07T20:30:00-04:00
+pre_event_document_freeze: 2026-08-04
 ---
 
 # NearMiss NYC — Source of Truth PRD
@@ -47,19 +59,45 @@ Version 2.0 makes the following major corrections to version 1.0:
 7. Cloud Run container, public-access, cost, statelessness, concurrency, and port requirements are explicit acceptance criteria.
 8. Public repository, README, data provenance, privacy handling, license, and fallback recording are part of P0.
 
+### 1.2 Version 2.1 correction summary
+
+Version 2.1 closes seven execution and governance gaps identified during review:
+
+1. Veris AI receives an explicit, conditional integration strategy without inventing an unconfirmed prize track or making Veris a runtime dependency.
+2. The event-day plan is rebuilt around a pre-event readiness gate, a 7:00 PM code freeze, and at least 75 minutes reserved for reliability, recording, submission, and contingency.
+3. P0 is divided into artifacts that must exist before arrival and the small event-day integration delta; tracking, trajectories, normalized fixtures, README scaffolding, and the captured evidence case are not event-day construction tasks.
+4. Event facts are tied to source documents stored inside the vault, with organizer-stated requirements separated from platform constraints, research findings, and execution inferences.
+5. Superseding ADRs formally replace the v1 deterministic-only P0 decision and any prior Cloud Run decision that treated deployment as optional or sponsor-only.
+6. The mandatory UI surface is reduced from sixteen separately named components to six judge-facing surfaces; implementation may still use smaller internal components.
+7. Runtime NYC enrichment and Gemini generation are P1. P0 uses cached, source-attributed context and a deterministic evidence-grounded explanation.
+
+### 1.3 Final stabilization patch — no version increment
+
+The final pre-event stabilization patch remains version **2.1.0** and adds no new product scope:
+
+1. The pairwise trajectory and conflict-scoring engine is extracted into the public, permissively licensed `vision-conflict-analytics` Python package. NearMiss NYC consumes a pinned release rather than owning the reusable primitive as private application logic.
+2. The package exposes tracked-object interaction analysis as a domain-neutral API that can support traffic conflicts, forklift–worker proximity, construction safety, robotics, and other asymmetric class-pair use cases.
+3. A Roboflow Workflow/community-plugin wrapper is explicitly post-P0; the hackathon artifact is the standalone tested library and its use inside NearMiss.
+4. Prepared code is disclosed in the public README. The disclosure separates pre-event scaffolding, reusable components, fixtures, and event-day integration work.
+5. Roboflow account creation and API-key validation move to Tuesday, August 4 because they are dependencies for Wednesday evidence work.
+6. This PRD is frozen after this patch. Organizer-driven changes and implementation choices shall be recorded in `08-Execution/05-Decision-Log.md`; no version 2.2 is planned before the event.
+
 ## 2. Hackathon compliance contract
 
-### 2.1 Event
+### 2.1 Event facts and source status
 
-- **Event:** NYC Vision Hack v.2 — Live Feeds, Open Data with Google Cloud, Roboflow, and Veris
-- **Date:** Friday, August 7, 2026
-- **Event time:** 4:00 PM–10:00 PM America/New_York
-- **Build window begins:** approximately 5:15 PM
-- **Submission lock:** 8:30 PM
-- **Demos:** 8:45 PM
-- **Format:** fully in-person
-- **Team size:** up to four; solo participation is allowed
-- **Theme:** Vision Agents on City Data
+| Claim | Status in this PRD | Vault source |
+|---|---|---|
+| Event is Friday, August 7, 2026, 4:00–10:00 PM | Organizer-page-derived; re-check after sign-in | [[01-Event/05-Roboflow-and-Event-Preparation-Brief]] |
+| Build period begins around 5:15 PM | Organizer-page-derived | [[01-Event/05-Roboflow-and-Event-Preparation-Brief]] |
+| Submission locks at 8:30 PM and demos begin at 8:45 PM | Organizer-page-derived | [[01-Event/05-Roboflow-and-Event-Preparation-Brief]]; [[01-Event/06-Hackathon-Compliance-Checklist]] |
+| Teams may contain up to four people and solo builders are allowed | Organizer-page-derived | [[01-Event/05-Roboflow-and-Event-Preparation-Brief]] |
+| The only stated eligibility gate is deployment on Google Cloud Run | Organizer-stated according to retrieved registration material | [[01-Event/06-Hackathon-Compliance-Checklist]] |
+| Judging covers Working Demo, NYC Relevance, Usefulness/Insight, Technical Execution, Data Craft + Responsibility, and Open Source | Organizer-page-derived | [[01-Event/05-Roboflow-and-Event-Preparation-Brief]]; [[01-Event/06-Hackathon-Compliance-Checklist]] |
+| Veris AI is a co-host | Source-supported | [[01-Event/05-Roboflow-and-Event-Preparation-Brief]] |
+| Veris has a dedicated prize track or mandatory integration | **Unverified; do not claim** | No confirming source in the vault |
+
+The exact submission form, demo duration, final judge list, Veris-specific prize terms, and any kickoff overrides remain unverified until organizer confirmation. A same-day organizer update supersedes this table and must be recorded in `08-Execution/05-Decision-Log.md`.
 
 ### 2.2 Hard eligibility gate
 
@@ -69,7 +107,7 @@ The Cloud Run service shall:
 
 - Be publicly reachable without judge authentication
 - Return HTTP 200 from `GET /health`
-- Expose at least one working live-analysis endpoint
+- Expose at least one working real-source analysis endpoint
 - Identify the deployed revision and active processing mode
 - Remain available during the demo window
 
@@ -79,12 +117,44 @@ Failure to satisfy this section means the submission is not hackathon-complete e
 
 | Judging dimension | NearMiss NYC proof |
 |---|---|
-| Working Demo | Public Cloud Run agent analyzes a real NYC feed; captured-feed fallback is available |
+| Working Demo | Public Cloud Run agent analyzes a real NYC source; captured-feed fallback is available |
 | NYC Relevance | NYC street safety, NYC camera source, and NYC Open Data context |
 | Usefulness or Insight | Surfaces possible road-user conflicts before they become reported crashes |
-| Technical Execution | Detection, tracking, transparent risk engine, provenance, fallbacks, structured API |
-| Data Craft + Responsibility | Source registry, freshness, privacy boundaries, uncertainty, reproducible fixtures |
+| Technical Execution | Detection, tracking evidence, transparent risk engine, provenance, fallbacks, and structured API |
+| Data Craft + Responsibility | Source registry, freshness, privacy boundaries, uncertainty, and reproducible fixtures |
 | Open Source | Public repository, README, architecture, license, setup, demo, and limitations |
+
+### 2.4 Sponsor and co-host integration policy
+
+#### Google Cloud
+
+Google Cloud Run is mandatory infrastructure and is part of P0. Gemini is optional P1 and shall never replace the deterministic P0 explanation.
+
+#### Roboflow
+
+Roboflow is the preferred perception provider. P0 shall demonstrate Roboflow inference on at least one real NYC frame when credentials and service availability permit. Stored normalized detections remain the fallback for the captured evidence case.
+
+NearMiss shall also expose its pairwise interaction logic as a separate public package, `vision-conflict-analytics`, under a permissive license. The package receives normalized tracked detections and returns candidate interacting pairs, decomposed factor scores, evidence sufficiency, and an optional predicted image-space intersection. NearMiss consumes a pinned package release. A Roboflow Workflow block or community-plugin wrapper is a post-P0 contribution path, not a dependency for the Friday submission.
+
+#### Veris AI
+
+Veris is treated as a **conditional evaluation-plane integration**, not an assumed runtime dependency.
+
+Before the event, or no later than kickoff, the team shall ask:
+
+1. Is there a Veris-specific prize, judging dimension, or required artifact?
+2. Can Veris run scenario tests against a public HTTP agent within the remaining time?
+3. Is there an SDK, starter project, account, or credit requirement that must be prepared?
+
+If Veris support is confirmed and a tested integration can be completed without consuming contingency time, NearMiss may submit a small scenario pack covering:
+
+- Live source unavailable
+- Duplicate or stale frames
+- No candidate conflict
+- Insufficient temporal evidence
+- Roboflow or enrichment provider failure
+
+The artifact should be a test result, screenshot, or machine-readable report proving graceful degradation. If Veris requirements are unconfirmed, unavailable, or require more than 30 minutes of untested work, the integration is skipped. The absence of Veris must not endanger Cloud Run eligibility, the real-source path, the captured evidence replay, or submission readiness.
 
 ## 3. Product summary
 
@@ -205,12 +275,13 @@ Every risk score shall be decomposable into visible factors. The LLM/VLM must no
 
 The demo shall remain usable when the live feed, Roboflow hosted service, Gemini, NYC Open Data, or venue internet fails.
 
-### G7 — Use sponsor technology meaningfully
+### G7 — Use sponsor and co-host technology proportionally
 
-- Google Cloud Run hosts the agent.
+- Google Cloud Run hosts the agent and clears the eligibility gate.
 - Roboflow provides the primary perception workflow where feasible.
-- Gemini may generate a schema-constrained evidence explanation.
+- Gemini may generate a schema-constrained evidence explanation only after the deterministic explanation is stable.
 - Roboflow MCP may accelerate setup and workflow management during development.
+- Veris may execute a bounded reliability scenario pack only when the integration path and event value are confirmed.
 
 ### G8 — Preserve responsible-AI boundaries
 
@@ -247,80 +318,114 @@ The hackathon MVP will not:
 8. **No identity layer.** Analyze road-user classes and movement, not identities.
 9. **Permissive open-source defaults.** Prefer Apache-2.0 and MIT components.
 10. **The agent runtime must not depend on developer tooling.** MCP may configure or inspect Roboflow assets but is not required to serve a request.
+11. **Reusable primitive, thin application.** Pairwise track-interaction analysis lives in `vision-conflict-analytics`; NearMiss supplies NYC-specific source adapters, evidence, context, UI, and demo orchestration.
 
 ## 11. Scope ladder
 
-### 11.1 P0 — Judge-ready core
+### 11.1 P0-A — Pre-event readiness baseline
 
-P0 is the minimum complete submission. Every item below is mandatory unless explicitly marked as an acceptable fallback.
+The following artifacts must be complete, locally validated, and committed before arriving at the venue. They are not event-day build tasks.
 
-#### Cloud Run and public access
+#### Deployment baseline
 
-- Public FastAPI agent deployed on Google Cloud Run
-- `GET /health` returns HTTP 200
-- Service listens on `0.0.0.0:$PORT`
-- Public access verified from a logged-out browser or independent device
-- Known-good deployed revision preserved
+- Personal-Gmail Google Cloud project with billing enabled
+- Cloud Run, Cloud Build, and Artifact Registry APIs enabled
+- Authenticated `gcloud` CLI
+- Public FastAPI service deployed and verified from a logged-out browser
+- `GET /health` returning HTTP 200
+- Service listening on `0.0.0.0:$PORT`
+- Known-good revision and rollback command recorded
 
-#### Real-feed path
+#### Captured evidence baseline
 
-- One configured NYC source from the approved source policy
-- Latest source image or short sample retrieved through a source adapter
-- Source name, jurisdiction, source URL identifier, retrieval timestamp, and freshness displayed
-- Roboflow perception executed on at least one real source image
-- Annotated result returned through the Cloud Run service
-- Valid no-conflict or insufficient-temporal-evidence state supported
+- One 10–20 second source-attributed NYC sequence or organizer-compatible sequence
+- Normalized fixture schema committed
+- Precomputed detections and tracks committed
+- Bounding boxes, labels, trajectory trails, candidate pair, and conflict marker verified
+- One supported candidate-conflict event verified
+- Transparent visual conflict-risk score and factor breakdown verified
+- Cached, source-attributed NYC historical context committed
+- Deterministic evidence-grounded explanation committed
+- Captured replay working without runtime external APIs
 
-#### Captured evidence path
+#### Reusable conflict-analytics baseline
 
-- One 10–20 second source-attributed NYC sequence or organizer starter-pack sequence
-- Precomputed or runtime detections and tracks
-- Bounding boxes, labels, trajectory trails, candidate pair, and conflict marker
-- One supported potential-conflict event
-- Transparent visual conflict-risk score and factor breakdown
-- Cached NYC historical context with dataset/source metadata
-- Deterministic structured safety report
-- Processing mode labeled `Captured feed replay` or `Demonstration fixture`, as applicable
+- Public `vision-conflict-analytics` repository created
+- Apache-2.0 or MIT license committed
+- Typed configuration and result schemas committed
+- Unit tests cover converging paths, parallel motion, asymmetric class pairs, insufficient observations, and unstable evidence
+- Versioned release or immutable commit published
+- NearMiss dependency pinned to that release or commit
+- NearMiss fixtures and runtime pipeline use the package API rather than duplicate internal scoring logic
+- README states the metric is an image-space interaction proxy, not calibrated time-to-collision
 
-#### Submission artifacts
+#### Real-source baseline
 
-- Public repository
-- README with problem, architecture, data sources, setup, Cloud Run deployment, demo flow, limitations, and privacy handling
-- Permissive project license
-- Architecture diagram
-- Two-minute demo script
-- Fallback recording and screenshots stored locally
+- At least one approved NYC source adapter tested
+- One current source image fetched successfully
+- Roboflow inference tested on that image where credentials permit
+- Source identifier, attribution, retrieval timestamp, freshness, and content hash available
+- Valid `no_candidate_conflict` and `insufficient_temporal_evidence` states implemented
 
-P0 shall not depend on a signed NYC DOT or 511NY bulk-feed agreement.
+#### Submission baseline
 
-### 11.2 P1 — Functional temporal runtime
+- Public repository created
+- README skeleton includes problem, architecture, sources, setup, Cloud Run deployment, demo flow, limitations, and privacy handling
+- Permissive license committed
+- Architecture diagram committed
+- Two-minute demo script drafted
+- Backup recording workflow tested
 
-P1 adds real temporal analysis for an uploaded or captured sequence:
+**Readiness rule:** if the deployment baseline or captured evidence baseline is incomplete by Thursday, August 6 at 8:00 PM America/New_York, stop all optional product work. Finish those baselines before attempting Gemini, runtime enrichment, additional cameras, custom model training, Veris, or visual redesign.
 
-- Roboflow RF-DETR or Workflow inference across sampled frames
-- Multi-object tracking
-- Image-space trajectory extraction
-- Rule-based candidate-pair evaluation
-- Runtime visual conflict-risk scoring
+### 11.2 P0-B — Event-day integration delta
+
+Only the following work is expected during the official build window:
+
+1. Inspect organizer starter assets and confirm final rules.
+2. Swap or configure the selected organizer/NYC source through the existing source adapter.
+3. Re-run Roboflow perception on the selected real source.
+4. Verify both judge-facing paths through the public Cloud Run revision.
+5. Update source attribution, README details, and submission fields.
+6. Record the final fallback demo and submit.
+
+Event-day P0 does **not** include building tracking, trajectories, the risk engine, normalized fixtures, the captured evidence case, the base dashboard, deployment scaffolding, the README skeleton, or the architecture diagram from scratch.
+
+### 11.3 P0-C — Judge-facing product surfaces
+
+P0 requires six surfaces, not sixteen separately polished widgets:
+
+1. **Source and Mode Header** — source selection, provenance, freshness, processing mode, and system state
+2. **Vision Canvas** — live snapshot or captured replay with all required overlays
+3. **Evidence Card** — temporal sufficiency, outcome, risk score, factor breakdown, and involved tracks
+4. **Context and Explanation Card** — cached NYC context and deterministic explanation
+5. **Limitations and Privacy Card** — uncertainty, image-space limitation, retention, and human-review boundary
+6. **Primary Actions** — `Analyze live source` and `Replay evidence case`
+
+Internal implementation may split these surfaces into smaller components, but separate polish of every subcomponent is not an acceptance criterion.
+
+### 11.4 P1 — Enhancements after P0 is green
+
+P1 may include:
+
+- Runtime multi-frame analysis of an uploaded or captured sequence
 - Runtime NYC Open Data lookup
 - Gemini schema-constrained explanation
-- Cached and deterministic fallbacks
-- Processing mode labeled `Runtime sequence analysis`
+- Veris reliability scenario pack when confirmed and pre-tested
+- Improved tracking metrics or dynamic visualization
+- Roboflow Workflow/community-plugin wrapper around `vision-conflict-analytics`
 
-### 11.3 P2 — Stretch capabilities
+### 11.5 P2 — Stretch capabilities
 
-P2 may begin only after P0 is frozen and the public Cloud Run revision is preserved.
+P2 may begin only after submission artifacts are complete and shall never consume the protected contingency window.
 
 P2 may include:
 
 - Periodic multi-frame sampling from one live camera
 - Multiple camera selection
-- Event timeline
-- Map markers
-- Camera risk ranking
-- WebSocket or server-sent progress updates
+- Event timeline or map
 - Continuous scheduled analysis
-- Optional Veris AI scenario testing
+- WebSocket or server-sent progress updates
 
 Failure to complete P1 or P2 shall not break P0.
 
@@ -328,52 +433,52 @@ Failure to complete P1 or P2 shall not break P0.
 
 ### 12.1 Default dashboard
 
-The dashboard contains:
+The dashboard exposes the six P0 surfaces defined in §11.3. The visual hierarchy shall prioritize:
 
-- Product thesis and one-sentence explanation
-- Source selector limited to approved configured sources
-- Source provenance and freshness badge
-- Live snapshot or captured replay panel
-- Detection and trajectory overlay
-- Conflict-point or conflict-region visualization
-- Risk-score card
-- Risk-factor breakdown
-- Temporal-evidence status
-- Historical-context card
-- Evidence list
-- Structured explanation
-- Limitations and uncertainty panel
-- Processing-mode badge
-- System and provider status
-- `Analyze live source` and `Replay evidence case` controls
+1. Source, freshness, and active processing mode
+2. The current frame or captured evidence sequence
+3. The outcome and temporal-evidence state
+4. Risk factors when a candidate event exists
+5. Context, limitations, and human-review recommendation
 
 ### 12.2 Golden demo flow
 
 The target demo is under two minutes.
 
-1. Open the public dashboard and show the Cloud Run agent URL/status.
-2. Point to the selected NYC source, retrieval timestamp, and live-mode badge.
+1. Open the public dashboard and show the Cloud Run agent status.
+2. Point to the selected NYC source, retrieval timestamp, and processing-mode badge.
 3. Select **Analyze live source**.
 4. Show Roboflow detections on the newly retrieved real NYC frame.
-5. If the frame lacks enough temporal evidence, show the explicit `Insufficient temporal evidence` state rather than forcing an alert.
+5. If the frame lacks enough temporal evidence, show `Insufficient temporal evidence` rather than forcing an alert.
 6. Select **Replay evidence case**.
-7. Show tracked road users and trajectory trails.
-8. Show the candidate conflict marker and visual conflict-risk factors.
-9. Show sourced NYC historical context.
-10. Show the evidence-grounded explanation, limitations, and human-review recommendation.
-11. Close with the privacy boundary: no face recognition, plate recognition, identity inference, or automated enforcement.
+7. Show tracked road users, trajectory trails, and the candidate pair.
+8. Show the visual conflict-risk proxy and decomposed factors.
+9. Show source-attributed NYC historical context.
+10. Show the deterministic evidence-grounded explanation, limitations, and human-review recommendation.
+11. If a Veris scenario report was completed without jeopardizing P0, show one reliability result in no more than ten seconds; otherwise do not mention an unimplemented integration.
+12. Close with the privacy boundary: no face recognition, plate recognition, identity inference, or automated enforcement.
 
 ### 12.3 Required five-second comprehension
 
 Without narration, the UI must answer:
 
-- Is this a live source, runtime sequence, captured replay, or fixture?
-- Which NYC source is being analyzed and when was it retrieved?
-- What road-user classes are visible?
-- Is there enough temporal evidence for conflict analysis?
-- What candidate conflict was identified?
+- Which source and processing mode are active?
+- What objects are visible or involved?
+- Is temporal evidence sufficient?
+- Was a candidate conflict found?
 - Why was it flagged?
-- What uncertainty or limitation applies?
+- What are the limitations and next human-review action?
+
+### 12.4 Valid live-path outcomes
+
+The live path may return:
+
+- Current detections with insufficient temporal evidence
+- No candidate conflict
+- Candidate conflict detected
+- Source unavailable with a clearly labeled fallback
+
+A live near-miss is not required for a truthful working demo. The captured evidence path demonstrates the complete conflict workflow reproducibly.
 
 ## 13. Event taxonomy
 
@@ -614,6 +719,42 @@ Roboflow MCP and Computer Vision Skills may be used during development to:
 
 MCP is not part of the request-serving runtime. The application shall continue to run when the MCP client is disconnected.
 
+### FR-021 — Conditional Veris evaluation integration
+
+When Veris tooling, event value, and access are confirmed, a thin evaluation adapter may submit or replay a bounded scenario set against the public NearMiss agent. The adapter shall:
+
+- Exercise failure and no-event scenarios rather than alter production inference
+- Produce a reviewable pass/fail or diagnostic artifact
+- Use the public API contract rather than private application internals where practical
+- Remain removable without changing the runtime pipeline
+- Be skipped automatically when access, documentation, or setup time is insufficient
+
+Veris is not a P0 runtime dependency and no Veris prize or judging credit shall be claimed without organizer confirmation.
+
+### FR-022 — Reusable conflict-analytics package
+
+The pairwise track-interaction engine shall be implemented in the standalone public package `vision-conflict-analytics`, not as NearMiss-only application logic.
+
+The package input shall include:
+
+- Frame index or timestamp
+- Tracked detections with stable `tracker_id`
+- Bounding box or centroid geometry
+- Class label and confidence
+- Asymmetric subject/object class-pair configuration
+- Minimum observation and score thresholds
+
+The package output shall include:
+
+- Subject and object track identifiers
+- Evidence-sufficiency state
+- Normalized conflict score
+- Decomposed factors: proximity, path convergence, closing motion/rate proxy, vulnerable-object or pair weighting, and evidence quality
+- Optional predicted image-space intersection and frames-to-intersection proxy
+- Explicit limitations and package version
+
+The API shall remain domain-neutral. NYC context, camera retrieval, LLM explanation, UI, and notification behavior remain in NearMiss or downstream applications. The package shall not claim calibrated metric distance or true time-to-collision without perspective calibration. NearMiss shall consume a pinned package release or immutable commit.
+
 ## 15. Non-functional requirements
 
 ### NFR-001 — Cloud Run container contract
@@ -720,7 +861,7 @@ flowchart LR
     E --> G[Tracker for Multi-frame Input]
     G --> H[Trajectory Extractor]
     H --> I[Temporal Evidence Gate]
-    I --> J[Conflict Risk Engine]
+    I --> J[vision-conflict-analytics Package]
     J --> K[Evidence Package]
     C --> K
     K --> L[NYC Context Provider]
@@ -746,7 +887,7 @@ flowchart LR
 - Public endpoint
 - Source adapters
 - Perception adapter
-- Risk engine
+- Pinned `vision-conflict-analytics` dependency
 - Context adapter
 - Explanation adapter
 - Fixture/captured-replay assets
@@ -770,7 +911,8 @@ User selects source
 → Roboflow inference runs
 → detections are normalized
 → temporal gate determines whether conflict scoring is allowed
-→ risk engine returns no-event, insufficient-evidence, or candidate-event result
+→ pinned `vision-conflict-analytics` package evaluates asymmetric track pairs
+→ package returns no-event, insufficient-evidence, or candidate-event result
 → context and explanation providers enrich the evidence
 → normalized report is returned
 → dashboard renders source, evidence, uncertainty, and mode
@@ -806,6 +948,7 @@ Preferred order:
 
 Supporting libraries:
 
+- `vision-conflict-analytics` for reusable pairwise track-interaction scoring
 - `supervision` for annotation, zones, and normalized detection utilities
 - ByteTrack or Roboflow `trackers` for temporal association
 
@@ -1012,24 +1155,16 @@ A queue, persistent database, user account, and authentication system are not re
 
 ## 22. User-interface requirements
 
-### Required components
+### Required judge-facing surfaces
 
-- `SourceSelector`
-- `SourceProvenance`
-- `FreshnessBadge`
-- `LiveSnapshot`
-- `CapturedReplay`
-- `DetectionOverlay`
-- `TrajectoryOverlay`
-- `TemporalEvidenceStatus`
-- `RiskScoreCard`
-- `RiskFactorBreakdown`
-- `EventEvidence`
-- `HistoricalContext`
-- `ExplanationPanel`
-- `LimitationsPanel`
-- `ProcessingModeBadge`
-- `SystemStatus`
+- `SourceAndModeHeader`
+- `VisionCanvas`
+- `EvidenceCard`
+- `ContextAndExplanationCard`
+- `LimitationsAndPrivacyCard`
+- `PrimaryActions`
+
+These are product surfaces, not mandated React component boundaries. A surface may contain smaller components such as provenance, freshness, overlays, risk factors, temporal status, and provider state.
 
 ### Required states
 
@@ -1045,7 +1180,7 @@ A queue, persistent database, user account, and authentication system are not re
 
 ### Required labels
 
-The UI shall never use `Live` without a retrieval timestamp and source identifier.
+The UI shall never use `Live` without a retrieval timestamp and source identifier. Captured or fixture evidence shall never be labeled live.
 
 ## 23. Responsible data and AI requirements
 
@@ -1166,38 +1301,64 @@ Test:
 - Roboflow perception demonstrated
 - Public repository and README ready
 - Responsible-data limitations explicitly stated
+- Public reusable conflict-analytics package demonstrated as the primitive beneath NearMiss
 
 Winning is an aspiration, not an acceptance criterion.
 
 ## 26. Definition of done
 
-NearMiss NYC is hackathon-complete only when all P0 conditions are satisfied:
+### 26.1 Arrival gate — must be green before Friday
 
-- [ ] Agent is deployed on Google Cloud Run.
-- [ ] Agent is publicly reachable without authentication.
+- [ ] Public Cloud Run health skeleton is deployed.
+- [ ] Public URL works from a logged-out browser.
 - [ ] `GET /health` returns HTTP 200.
 - [ ] Service binds to `0.0.0.0:$PORT`.
-- [ ] A real NYC source is configured and attributed.
-- [ ] The deployed service has fetched and analyzed the real source successfully.
-- [ ] Live-source result shows source, retrieval time, freshness, provider, and processing mode.
-- [ ] A valid no-conflict or insufficient-evidence state is implemented.
-- [ ] Captured evidence sequence plays correctly.
-- [ ] Bounding boxes and trajectory trails are visible in the evidence case.
-- [ ] One supported candidate conflict is highlighted.
-- [ ] Risk score and factor breakdown are displayed.
-- [ ] Cached or runtime historical context is displayed and sourced.
-- [ ] Structured explanation and limitations are displayed.
+- [ ] At least one NYC source adapter has fetched a current image.
+- [ ] Roboflow perception has been tested on the selected source or a source-compatible sample.
+- [ ] Captured evidence sequence and source attribution are committed.
+- [ ] Normalized detections, tracks, trajectories, candidate pair, and risk fixtures are committed.
+- [ ] Public `vision-conflict-analytics` repository, tests, license, and immutable release/commit exist.
+- [ ] NearMiss imports a pinned package version and contains no duplicate private scoring implementation.
+- [ ] Captured replay works without external APIs.
+- [ ] Cached NYC context and deterministic explanation are committed.
+- [ ] Six required judge-facing surfaces render.
+- [ ] Public repo, README skeleton, architecture diagram, and permissive license exist.
+- [ ] Two-minute demo script exists.
+
+If any of the first nine checks is red, the project is not ready for optional sponsor integrations or design expansion.
+
+### 26.2 Submission gate — must be green by 8:15 PM Friday
+
+- [ ] Public Cloud Run revision is reachable and identified.
+- [ ] Real NYC source is configured, attributed, and analyzed through the deployed service.
+- [ ] Live result shows source, retrieval time, freshness, provider, and processing mode.
+- [ ] No-conflict and insufficient-evidence states behave truthfully.
+- [ ] Captured evidence replay shows the supported candidate conflict and risk-factor breakdown.
+- [ ] Context, explanation, limitations, and privacy boundary are visible.
 - [ ] Every fallback is labeled.
-- [ ] Core captured-replay demo works without runtime external APIs.
-- [ ] Public repo includes README, architecture, deployment instructions, source policy, privacy boundaries, and demo instructions.
-- [ ] A permissive license is present.
+- [ ] README contains final source, deployment, run, demo, limitation, reusable-package, and pre-existing-code disclosure details.
 - [ ] Backup recording and screenshots exist locally.
-- [ ] Presenter can complete the golden demo in under two minutes.
-- [ ] Submission artifacts are ready before 8:15 PM, leaving buffer before the 8:30 PM lock.
+- [ ] Public repo and Cloud Run URL are placed in the submission form.
+- [ ] Golden demo succeeds three consecutive times from the deployed URL.
+- [ ] Submission is ready by 8:15 PM, leaving fifteen minutes before the 8:30 PM lock.
+
+### 26.3 Conditional Veris completion
+
+Veris is complete only when all are true:
+
+- [ ] Organizers or Veris staff confirm the integration or prize value.
+- [ ] Account/tool access already works.
+- [ ] The scenario pack runs without changing the production pipeline.
+- [ ] A result artifact is available.
+- [ ] The work did not consume protected contingency time.
+
+Failure to satisfy this subsection does not make NearMiss incomplete unless organizers explicitly announce a Veris eligibility requirement.
 
 ## 27. Execution plan
 
-### 27.1 Before Friday, August 7, 2026
+### 27.1 Critical path before Friday, August 7, 2026
+
+#### Tuesday, August 4 — retire deployment risk
 
 1. Use a personal Gmail Google Cloud account.
 2. Enable billing.
@@ -1205,77 +1366,128 @@ NearMiss NYC is hackathon-complete only when all P0 conditions are satisfied:
 4. Install and authenticate `gcloud`.
 5. Deploy a public FastAPI health skeleton.
 6. Verify the public URL from a logged-out browser.
-7. Create a Roboflow account and obtain the API key.
-8. Connect Roboflow MCP to the selected coding agent.
-9. Install Roboflow Computer Vision Skills.
-10. Obtain a 511NY REST key if that source is selected.
-11. Obtain a Socrata app token.
-12. Pre-download or cache required model assets where permitted.
+7. Record the deploy and rollback commands.
+8. Create the Roboflow account, obtain the API key, and run one inference smoke test.
+
+#### Wednesday, August 5 — retire evidence and career-artifact risk
+
+9. Create the public `vision-conflict-analytics` repository and package skeleton.
+10. Implement typed asymmetric class-pair configuration and decomposed interaction scoring.
+11. Add unit tests for convergence, parallel motion, insufficient observations, evidence quality, and class-pair asymmetry.
+12. Publish an immutable release or commit and pin NearMiss to it.
 13. Validate one approved NYC source.
-14. Prepare a captured evidence sequence and normalized fixtures.
-15. Prepare README and license skeletons.
-16. Bring laptop, charger, phone/webcam, and hotspot.
+14. Create the captured evidence sequence.
+15. Commit normalized detections, tracks, trajectories, conflict factors, context, and explanation fixtures.
+16. Verify the captured replay locally and on the deployed service.
+17. Test no-conflict, stale-frame, and insufficient-evidence states.
+
+#### Thursday, August 6 — retire submission risk
+
+18. Obtain the selected 511NY key and/or Socrata token only when used.
+19. Finalize the six dashboard surfaces.
+20. Finalize README skeleton, architecture diagram, license, demo script, reusable-package link, and pre-existing-code disclosure.
+21. Produce a preliminary backup recording.
+22. Run three deployed golden-path tests.
+23. Ask organizers about pre-existing code policy and disclose prepared work regardless of whether a special form field exists.
+24. Ask organizers or Veris contacts whether a Veris-specific track, tool, or artifact exists.
+
+#### Thursday 8:00 PM readiness decision
+
+- If Cloud Run public access is not green: stop all other work and fix deployment.
+- If the captured evidence package is not green: stop all live, Gemini, Veris, and design work and finish fixtures.
+- If both baselines are green: freeze them and prepare only small event-day adapters.
 
 ### 27.2 Event execution timeline
 
-#### 4:00–5:15 PM — setup and workshop
+#### 4:00–5:15 PM — check-in, source confirmation, and workshop
 
-- Check in.
-- Obtain organizer starter pack.
-- Confirm source legality and availability.
-- Use the Cloud Run workshop to verify deployment.
+- Obtain organizer starter assets.
+- Confirm final rules, submission mechanism, and Veris status.
+- Confirm the chosen source is permitted and technically reachable.
+- Revalidate the existing Cloud Run service; do not rebuild the platform.
 
 #### 5:15–5:35 PM — clear eligibility gate
 
-- Deploy `/health` and minimal live-source endpoint.
-- Verify public access.
-- Tag or record the known-good revision.
+- Deploy or re-deploy the known-good revision.
+- Verify `/health`, public access, and revision metadata.
+- Save the working URL and rollback revision.
 
-#### 5:35–6:15 PM — real-feed perception
+#### 5:35–6:05 PM — integrate the final real source
 
-- Fetch one real NYC source image.
-- Run Roboflow inference.
-- Return normalized detections and annotated frame.
-- Display provenance and freshness.
+- Configure the organizer or approved NYC source through the existing adapter.
+- Run Roboflow perception.
+- Show provenance, freshness, and an annotated result.
 
-#### 6:15–7:00 PM — evidence replay
+#### 6:05–6:35 PM — verify both demo paths
 
-- Integrate captured sequence.
-- Add tracking, trajectories, temporal gate, and risk factors.
-- Validate the one target event.
+- Run the live-source path.
+- Run the captured evidence replay.
+- Verify no-event and insufficient-evidence behavior.
+- Fix integration defects only; do not redesign architecture.
 
-#### 7:00–7:40 PM — context and explanation
+#### 6:35–7:00 PM — documentation and optional bounded integration
 
-- Add cached/runtime NYC context.
-- Add template explanation.
-- Add Gemini only when the template path is stable.
+- Update final source names and screenshots.
+- Complete README and submission fields.
+- Run a pre-tested Veris scenario pack only when confirmed and expected to finish before 7:00 PM.
 
-#### 7:40–8:00 PM — dashboard and README
+#### 7:00 PM — hard code freeze
 
-- Complete visual hierarchy.
-- Verify mode labels and limitations.
-- Finalize README, architecture, data sources, and license.
+- Tag and preserve the deployed revision.
+- No new feature, provider, framework, model, camera, page, or architectural refactor after this point.
 
-#### 8:00 PM — scope freeze
+#### 7:00–7:30 PM — reliability and fallback proof
 
-- Preserve the deployed revision.
-- Add no new core feature.
-- Run demo reliability checks.
-- Record fallback demo.
+- Run three deployed golden-path tests.
+- Test primary source outage and captured replay fallback.
+- Record the final backup demo.
+- Save screenshots locally.
 
-#### 8:15 PM — submission-ready target
+#### 7:30–8:00 PM — submission assembly
 
-- Prepare submission fields and URLs.
-- Verify public repo and Cloud Run URL.
-- Keep fifteen minutes of buffer before the 8:30 PM lock.
+- Verify public repo, license, README, architecture, source notes, privacy notes, and URLs.
+- Rehearse the two-minute demo.
+- Populate the submission form.
+
+#### 8:00–8:15 PM — protected contingency
+
+This window is reserved only for:
+
+- Rollback to the known-good Cloud Run revision
+- Fixing a broken public URL
+- Correcting submission metadata
+- Re-recording a failed backup clip
+
+It shall not be used for optional features or visual polish.
+
+#### 8:15 PM — submit
+
+Submit fifteen minutes before the 8:30 PM lock. Use 8:15–8:30 only for submission-system recovery or organizer-directed corrections.
+
+### 27.3 Event-day kill order
+
+When time is lost, remove work in this order:
+
+1. Additional visual polish
+2. Gemini runtime explanation
+3. Runtime NYC Open Data lookup
+4. Veris integration
+5. Additional camera sources
+6. Uploaded-video runtime processing
+7. Roboflow Workflow/plugin wrapper work
+
+Never remove or destabilize Cloud Run public access, the real-source snapshot path, the captured evidence replay, source provenance, truthful outcome states, or the backup recording.
 
 ## 28. Major risks and mitigations
 
 | Risk | Impact | Mitigation |
 |---|---|---|
-| Not deployed on Cloud Run | Disqualification | Deploy health skeleton first and preserve revision |
+| Pre-event captured sequence/fixtures incomplete | Critical schedule failure | Thursday 8:00 PM readiness gate; stop all optional work |
+| Not deployed on Cloud Run | Disqualification | Deploy health skeleton on Aug 4 and preserve revision |
 | Public access blocked by organization policy | Disqualification | Use personal Gmail or `--no-invoker-iam-check` |
 | Container binds to localhost/wrong port | High | Bind to `0.0.0.0:$PORT`; test locally and deployed |
+| Event facts or submission format changed | High | Store source documents; reconfirm at kickoff; log overrides |
+| Veris prize/integration assumed without evidence | Medium | Treat as unverified and conditional; ask by kickoff; cap at 30 minutes before freeze |
 | Live source unavailable | High | Organizer source, alternate approved source, captured replay |
 | Official feed requires signed agreement | High | Do not depend on bulk feed; use approved accessible REST/still source |
 | No near-miss occurs live | High | Treat no-event as valid; use captured evidence case for full workflow |
@@ -1284,21 +1496,27 @@ NearMiss NYC is hackathon-complete only when all P0 conditions are satisfied:
 | Tracking identity switches | Medium | Short sequence, smoothing, precomputed tracks |
 | Perspective invalidates metric claims | High | Use image-space proxy and explicit limitations |
 | Roboflow latency or credit failure | Medium | Stored detections/local fallback; limit calls |
-| Gemini fails or hallucinates | High | Schema constraints and deterministic template |
-| NYC API fails | Medium | Cached normalized context |
+| Package extraction destabilizes NearMiss | High | Finish and pin `vision-conflict-analytics` by Wednesday; no package API refactor after the release is consumed |
+| Prepared code appears undisclosed | High | Ask organizers by Thursday; add explicit README disclosure separating pre-event and event-day work |
+| Gemini fails or hallucinates | Low for P0 | Deterministic explanation is P0; Gemini is P1 |
+| NYC API fails | Low for P0 | Cached normalized context is P0; runtime lookup is P1 |
 | Rooftop Wi-Fi fails | High | Personal hotspot, captured replay, local recording |
-| UI consumes excessive time | Medium | One dashboard, no auth, fixture-first |
+| UI consumes excessive time | Medium | Six judge-facing surfaces; no separate polish requirement for subcomponents |
+| Protected contingency consumed by features | High | 7:00 PM code freeze and explicit kill order |
 | Privacy sloppiness | High | No identity features, minimize retention, source/privacy disclosure |
 | License conflict | Medium | RF-DETR + MIT/Apache defaults; avoid AGPL default |
 
 ## 29. Locked architectural decisions
 
-The following are approved for version 2.0:
+The following are approved for version 2.1:
 
 - Public Google Cloud Run agent is mandatory.
-- Real NYC feed analysis is part of P0.
+- Real NYC source analysis is part of P0.
 - Captured-feed evidence replay is the guaranteed conflict demonstration and fallback.
-- A live no-conflict result is valid.
+- A live no-conflict or insufficient-evidence result is valid.
+- Tracking, trajectories, risk fixtures, cached context, and deterministic explanation are prepared before the event.
+- Runtime NYC Open Data lookup and Gemini explanation are P1.
+- Six judge-facing UI surfaces define P0; internal component count is not an acceptance criterion.
 - Visual conflict-risk proxy, not true collision probability.
 - Provider-adapter architecture.
 - One orchestrated pipeline, not a multi-agent council.
@@ -1307,27 +1525,39 @@ The following are approved for version 2.0:
 - FastAPI backend.
 - Next.js dashboard is preferred but not allowed to endanger the Cloud Run agent.
 - Roboflow RF-DETR/Workflow is the preferred perception provider.
+- Pairwise trajectory/conflict analysis is owned by the public `vision-conflict-analytics` package and consumed through a pinned dependency.
+- A Roboflow Workflow/community-plugin wrapper is post-P0 and must not delay the submission.
 - `supervision` and a lightweight tracker are preferred post-processing tools.
 - Roboflow MCP is a development-plane integration, not runtime infrastructure.
+- Veris is a conditional evaluation-plane integration, not a presumed prize requirement or runtime dependency.
 - CPU-first Cloud Run strategy; GPU is optional.
 - Approved accessible camera endpoints or organizer feeds; no signed bulk-feed dependency.
 - JSON fixtures and captured assets are operational fallbacks.
 - Public repo, README, source policy, privacy statement, and permissive license are P0.
+- 7:00 PM is the hard feature freeze; 8:00–8:15 PM is protected contingency.
 
-## 30. Open questions
+### Required superseding ADRs
 
-These may be resolved during the event without changing the product thesis:
+- `ADR-006-Real-Source-P0-with-Captured-Fallback.md` supersedes `ADR-001-Deterministic-Demo-First.md` as the P0 sequencing decision.
+- `ADR-007-Cloud-Run-Eligibility-Gate.md` makes Cloud Run a disqualification gate rather than a sponsor-only deployment preference.
 
-- Which organizer or city camera source is most reliable?
-- Does the selected camera update frequently enough for multi-frame temporal analysis?
-- Which RF-DETR size or Roboflow Workflow gives the best latency/accuracy tradeoff?
-- Which exact intersection and coordinates correspond to the captured evidence sequence?
-- Which NYC Open Data dataset fields are stable enough for runtime enrichment?
-- Whether the dashboard is served separately or by the agent service
-- Whether the event provides a mandatory starter repository or submission format
-- Whether Veris AI offers a useful optional test flow within remaining time
+If another local vault revision contains `ADR-009-Cloud-Run-Deployment.md`, it shall be marked superseded by ADR-007 or reconciled through a new numbered ADR before implementation continues.
 
-Event-specific overrides shall be recorded in the decision log and reflected in the next PRD version.
+## 30. Open questions and decision deadlines
+
+| Question | Decision deadline | Default when unresolved |
+|---|---|---|
+| Which organizer or city camera source is most reliable? | Kickoff, 4:45 PM | Use the already tested approved source |
+| Does the selected source update frequently enough for temporal analysis? | Before 5:35 PM | Use it for live snapshot proof only; use captured replay for trajectories |
+| Which RF-DETR size or Workflow gives the best tradeoff? | Thursday Aug 6 | Use the smallest already validated option |
+| Which exact intersection corresponds to the evidence sequence? | Thursday Aug 6 | Label only with verified source metadata; do not invent coordinates |
+| Which NYC Open Data fields are stable? | Thursday Aug 6 | Use cached, source-attributed context |
+| What is the policy for pre-existing code, scaffolding, reusable packages, and prepared fixtures? | Thursday Aug 6; reconfirm at kickoff | Disclose all prepared work in README and submission notes; separate pre-event from event-day commits |
+| Is there a mandatory starter repo or submission format? | Kickoff | Preserve current repo; adapt metadata only |
+| Does Roboflow prefer the interaction primitive as a community plugin, core block proposal, or standalone OSS package? | Mentor conversation after P0 is stable | Keep the standalone package; ask for the preferred upstream path without attempting an onsite refactor |
+| Is there a Veris prize, requirement, starter tool, or useful scenario API? | Kickoff, before 5:15 PM | Skip Veris and do not claim integration |
+
+Event-specific overrides shall be recorded in the decision log. Because this document is frozen before the event, no PRD revision is required onsite unless an organizer change invalidates the product thesis, safety boundary, or Cloud Run eligibility contract.
 
 ## 31. Change-control protocol
 
@@ -1340,26 +1570,60 @@ A PRD change shall include:
 5. Acceptance-criteria update
 6. ADR reference when architectural
 7. Version increment
+8. Source or organizer evidence when event requirements change
+
+### Pre-event document freeze
+
+Version 2.1.0 is the final planned PRD before Friday. After August 4:
+
+- Implementation choices, package release hashes, source selections, organizer answers, and bounded scope cuts go to `08-Execution/05-Decision-Log.md`.
+- README and runbook may be updated to reflect actual commands and URLs.
+- No version 2.2 shall be created for additive clarification, implementation status, or event-day configuration.
+- A new PRD version is permitted only when organizer direction changes the product thesis, safety boundary, architecture, or eligibility contract.
+
+### Governance state for version 2.1
+
+Version 2.1 is not considered fully ratified inside the vault until:
+
+- ADR-006 is accepted and ADR-001 is marked superseded.
+- ADR-007 is accepted.
+- Any locally existing ADR-009 that conflicts with ADR-007 is marked superseded or reconciled.
+- `07-Decisions/00-ADR-Index.md` points to the active decisions.
+- The event preparation brief and compliance checklist are stored under `01-Event/`.
 
 ### Versioning
 
 - **Patch:** wording, clarification, or non-behavioral correction
-- **Minor:** additive requirement that does not redefine P0
-- **Major:** product thesis, safety boundary, architecture, eligibility contract, or P0 change
+- **Minor:** additive requirement or execution correction that does not change the final product thesis or eligibility contract
+- **Major:** product thesis, safety boundary, architecture, eligibility contract, or P0 product outcome change
 
 ## 32. Requirement provenance
 
-This revision is grounded in:
+### 32.1 Vault source register
 
-- The original NearMiss NYC Source-of-Truth PRD version 1.0.0
-- The NYC Vision Hack v.2 Roboflow and event preparation brief
-- The NYC Vision Hack v.2 compliance checklist
+| Vault document | Role | Authority |
+|---|---|---|
+| `01-Event/05-Roboflow-and-Event-Preparation-Brief.md` | Event schedule, judging synthesis, Roboflow OSS/product research, prior-winner patterns | Research brief derived from retrieved public sources; verify time-sensitive details at kickoff |
+| `01-Event/06-Hackathon-Compliance-Checklist.md` | Eligibility gate, Cloud Run constraints, data-access lead times, submission checklist | Compliance synthesis distinguishing organizer statements, platform constraints, and best practice |
+| `02-Product/00-Source-of-Truth-PRD.md` | Product and execution contract | Canonical internal decision document after ADR ratification |
+| `07-Decisions/ADR-006-Real-Source-P0-with-Captured-Fallback.md` | P0 sequencing and fallback decision | Architectural decision |
+| `07-Decisions/ADR-007-Cloud-Run-Eligibility-Gate.md` | Deployment and eligibility decision | Architectural decision |
+| `04-Architecture/11-Vision-Conflict-Analytics-Package.md` | Reusable package boundary, API, tests, release, and Roboflow contribution path | Final implementation design note; changes logged rather than versioned before the event |
+| `08-Execution/09-Preexisting-Code-Disclosure.md` | Prepared-code disclosure template and commit boundary | Submission transparency artifact |
 
-Where these materials distinguish organizer-stated requirements, platform constraints, and inferred best practices, this PRD treats them as follows:
+### 32.2 Claim classification
 
-- **Organizer-stated:** Cloud Run eligibility gate, schedule, real-feed demo expectation, judging dimensions, open-source emphasis
-- **Platform constraints:** Cloud Run public access, port binding, statelessness, request behavior, data-source access, API throttling
-- **Execution best practices:** personal-Gmail GCP project, CPU-first deployment, captured fallback, hotspot, source registry, privacy disclosure, scope freeze
+- **Organizer-stated:** Cloud Run eligibility gate, schedule, real-feed demonstration expectation, team format, judging dimensions, open-source emphasis
+- **Platform constraint:** Cloud Run public access, port binding, statelessness, request behavior, data-source access, throttling, and billing requirements
+- **Research finding:** Roboflow OSS capabilities, licensing, Workflow/MCP surface, and past-event patterns
+- **Execution inference:** personal-Gmail project, CPU-first deployment, six-surface UI, captured fallback, source registry, 7:00 PM freeze, and 8:15 PM submission target
+- **Unverified:** exact submission mechanism, per-team demo duration, final judge list, Veris prize track, Veris required tooling, and attendee-specific sponsor credits
+
+Unverified claims shall not be presented as rules or benefits. They remain questions with explicit decision deadlines.
+
+### 32.3 Source custody rule
+
+A requirement derived from external research shall not be added to the PRD unless the supporting source, citation, screenshot, or research brief is stored in the vault or linked from the source register. Organizer updates received during the event shall be captured in `08-Execution/05-Decision-Log.md` with timestamp and impact.
 
 ---
 
@@ -1367,4 +1631,4 @@ Where these materials distinguish organizer-stated requirements, platform constr
 
 NearMiss NYC succeeds when a public Google Cloud Run agent analyzes a real NYC source, truthfully reports whether enough evidence exists for conflict analysis, and demonstrates one reproducible captured candidate-conflict event with clear visual evidence, a transparent non-scientific risk proxy, sourced NYC context, explicit uncertainty, and a human-review recommendation.
 
-The project shall remain demonstrable when every external dependency fails, but it shall not represent fallback output as live analysis.
+The project shall remain demonstrable when every external dependency fails, but it shall not represent fallback output as live analysis. The public submission shall disclose which scaffolding, reusable package code, fixtures, and deployment work existed before the official build window and which source integration, validation, and presentation work was completed during the event.

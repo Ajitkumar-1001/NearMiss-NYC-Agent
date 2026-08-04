@@ -14,7 +14,7 @@ requirement, not a hope.
 
 | Property | How it's guaranteed | Verified |
 |---|---|---|
-| Runs with network off | Fixture path ([[ADR-001-Deterministic-Demo-First]]) | [ ] |
+| Runs with network off | Fixture path ([[PRD]] §29) | [ ] |
 | Provider outage invisible | Adapter fallback ([[07-Provider-Adapters]]) | [ ] |
 | Same result every run | Deterministic fixtures, fixed seeds | [ ] |
 | Resets in under {{RESET_SECONDS}}s | {{RESET_METHOD}} | [ ] |
@@ -39,4 +39,4 @@ Rehearse these, don't just plan for them:
 > Two clean end-to-end rehearsals minimum — [[08-Definition-of-Done]].
 
 ---
-Related: [[ADR-001-Deterministic-Demo-First]] · [[04-Demo-Script]] · [[05-QA-Checklist]] · [[06-Risk-Register]]
+Related: [[PRD]] §29 · [[04-Demo-Script]] · [[05-QA-Checklist]] · [[06-Risk-Register]]

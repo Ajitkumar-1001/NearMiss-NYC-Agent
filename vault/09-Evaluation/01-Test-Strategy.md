@@ -15,7 +15,7 @@ isn't time, and that's a deliberate trade.
 | Layer | What | Why |
 |---|---|---|
 | Pipeline stages | Fixture in → expected out | Regressions here kill the demo |
-| Adapters | Fixture fallback fires on failure | [[ADR-003-Provider-Adapter-Architecture]] |
+| Adapters | Fixture fallback fires on failure | [[PRD]] §29 |
 | API | Contract shape matches [[05-API-Contracts]] | Frontend/backend drift |
 | Demo path | Full end-to-end, network off | The thing judges see |
 

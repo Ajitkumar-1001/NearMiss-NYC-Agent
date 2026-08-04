@@ -41,7 +41,7 @@ will ask.
 | {{CLAIM}} | {{SOURCE}} | low |
 
 > [!caution] This table is deliberately still empty
-> [[PRD]] §3 states the problem qualitatively and cites nothing. Rather than
+> [[PRD]] §4 states the problem qualitatively and cites nothing. Rather than
 > invent a citation, the placeholder stays until a real source is found. Nothing
 > in [[02-2-Minute-Pitch]] may quote a number that does not trace to a filled row
 > here with a value in the Actual column of [[06-Success-Metrics]].
@@ -60,7 +60,7 @@ Prior art and its gaps: [[03-Prior-Art]].
 - [ ] What changed — data availability, model capability, cost?
 
 > [!todo] The PRD does not answer this
-> [[PRD]] §3 establishes the gap but not the timing. Fill this before the pitch —
+> [[PRD]] §4 establishes the gap but not the timing. Fill this before the pitch —
 > it is the question that follows "why hasn't someone done this already".
 
 ---

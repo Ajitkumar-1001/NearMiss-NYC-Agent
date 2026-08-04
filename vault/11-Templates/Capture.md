@@ -26,7 +26,7 @@ probably isn't worth capturing.
 ## Triage to
 
 The note that owns this — routing table is in [[CLAUDE]]. If it constrains the
-build it becomes an ADR via [[ADR-Template]] with a row in [[00-ADR-Index]]; if
+build it becomes an entry in [[PRD]] §29 via the §31 change-control protocol; if
 it's smaller, it goes in [[05-Decision-Log]].
 
 ---

@@ -15,7 +15,7 @@ Working notes on the vision side. Decisions that stick get promoted to an ADR.
 - [ ] Detection
 - [ ] Tracking
 - [ ] Trajectory extraction
-- [ ] Conflict scoring → see [[ADR-002-Visual-Conflict-Proxy]]
+- [ ] Conflict scoring → see [[PRD]] §29
 
 ## Model candidates
 
@@ -36,4 +36,4 @@ Working notes on the vision side. Decisions that stick get promoted to an ADR.
 > file in place — we want the failures preserved.
 
 ---
-Related: [[ADR-002-Visual-Conflict-Proxy]] · [[04-Vision-Evaluation]] · [[Model-Card]] · [[Experiment-Log]]
+Related: [[PRD]] §29 · [[04-Vision-Evaluation]] · [[Model-Card]] · [[Experiment-Log]]

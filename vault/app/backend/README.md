@@ -18,7 +18,7 @@ Components and their responsibilities are specified in
 
 - External providers only through adapters — [[07-Provider-Adapters]]
 - Must run end-to-end on `demo/fixtures/` with no network —
-  [[ADR-001-Deterministic-Demo-First]]
+  [[PRD]] §29
 - Payload shapes match [[06-Data-Model]] exactly
 
 ## Run

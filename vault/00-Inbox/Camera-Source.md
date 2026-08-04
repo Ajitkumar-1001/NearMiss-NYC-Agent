@@ -8,10 +8,10 @@ status: draft
 # Which official camera source provides the most reliable clip or feed?
 
 > [!info] Source
-> [[PRD]] §29, open question 1.
+> [[PRD]] §30, open question 1.
 
 - **Captured:** 2026-08-03
-- **Source:** [[PRD]] §29
+- **Source:** [[PRD]] §30
 
 ## Why it matters
 
@@ -24,6 +24,18 @@ feed caps the project at runtime analysis of uploaded clips.
 
 Two High-impact rows in [[06-Risk-Register]] hang on the answer: the feed being
 unavailable, and no near-miss occurring in the footage.
+
+## Narrowed by PRD v2.0
+
+[[PRD]] §18.1 now sets an approved source order to try, in this priority: (1)
+organizer starter-pack live camera, (2) public NYC DOT still-image endpoint,
+(3) 511NY REST camera via a self-service developer key, (4) phone/USB webcam
+as an emergency fallback. [[PRD]] §9 and §18.3 confirm P0 must not depend on
+a signed NYC DOT bulk-feed agreement or a 511NY Developer Access Agreement —
+so those paths are ruled out for the candidate list below, not just deprioritized.
+
+The exact source pick for the demo is still {{CAMERA_SOURCE_FOR_DEMO}} — this
+remains open question 1 in [[PRD]] §30.
 
 ## How to resolve
 

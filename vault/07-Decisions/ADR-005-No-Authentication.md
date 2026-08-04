@@ -9,14 +9,16 @@ status: active
 
 ## Status
 
-Accepted — [[PRD]] §27, approved for v1.0.
+Accepted — [[PRD]] §29, approved for v2.0.
 
 ## Context
 
-[[PRD]] §8 rules out authentication, accounts, roles, billing, and subscriptions
-as non-goals, and §25 lists authentication first among the prohibited time sinks
-before P0. More decisively, §24's definition of done requires the deployed
-dashboard to **load without authentication** — a judge who has to be handed
+[[PRD]] §9 rules out authentication, accounts, roles, billing, and subscriptions
+as non-goals. PRD v2.0 no longer carries the v1 §25 prohibited-time-sinks list —
+that list was restructured into the §27 event-day execution-plan timeline — but
+the same exclusion holds: authentication appears nowhere in §11.1's P0 scope.
+More decisively, §26's definition of done requires the deployed agent to **be
+publicly reachable without authentication** — a judge who has to be handed
 credentials is a judge who may not reach the demo at all.
 
 There is also nothing to protect. The system holds no personal data by
@@ -36,7 +38,7 @@ No user accounts, sessions, or authentication. Anything deployed is public.
 
 **Negative**
 - Everything deployed is public, **including `POST /api/v1/analyze`**. Uploads
-  must therefore be constrained by type and size (NFR-007), because there is no
+  must therefore be constrained by type and size (NFR-010), because there is no
   identity to rate-limit against.
 - Nothing that must stay private can be deployed on this stack.
 - Secrets must remain strictly server-side — the public surface makes any
@@ -53,7 +55,7 @@ No user accounts, sessions, or authentication. Anything deployed is public.
 |---|---|
 | Basic auth or a shared password | One more thing to fail on stage, and judges must be told it |
 | IP allowlist for the venue | Venue networks are unpredictable; a NAT change locks everyone out |
-| Full authentication | Prohibited time sink (§25) and guards data that does not exist |
+| Full authentication | Ruled out as a non-goal (§9) and guards data that does not exist |
 
 ---
 Related: [[PRD]] · [[05-Non-Goals]] · [[08-Deployment]] · [[01-System-Context]] · [[10-Responsible-AI]] · [[ADR-006-No-Identity-Recognition]] · [[00-ADR-Index]]

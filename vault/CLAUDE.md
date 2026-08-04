@@ -19,7 +19,6 @@ This is an Obsidian vault, not a source tree. Notes are the product here.
 | System design, contracts, data model, deployment | `04-Architecture/` |
 | SpecKit constitution, workflow, prompts | `05-SpecKit/` |
 | gstack workflow and review checklists | `06-gstack/` |
-| Architecture decision records | `07-Decisions/` |
 | Runbook, time-box, task board, risks, blockers | `08-Execution/` |
 | Test strategy, cases, agent/vision eval | `09-Evaluation/` |
 | Pitch copy, judging map, demo script | `10-Pitch/` |
@@ -40,8 +39,11 @@ Unsorted capture goes to `00-Inbox/` and gets triaged, not left there.
 4. **Never link `[[README]]` except to the root one.** There are five
    `README.md` files (root, `app/backend/`, `app/frontend/`, `demo/fixtures/`,
    `tests/`); the four sub-READMEs link outward but are never link targets.
-5. **A decision that constrains the build becomes an ADR** in `07-Decisions/`
-   from [[ADR-Template]], and gets a row in [[00-ADR-Index]].
+5. **A decision that constrains the build goes in [[PRD]] §29**, the single list
+   of locked architectural decisions. There is no ADR folder — it was revoked
+   when v2.0.0 landed. Changing a locked decision requires the §31
+   change-control protocol and a PRD version increment. Smaller calls that don't
+   constrain the build go in [[05-Decision-Log]].
 
 ## Don't
 

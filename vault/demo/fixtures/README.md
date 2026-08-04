@@ -10,7 +10,7 @@ status: draft
 Recorded inputs and expected outputs that make the demo deterministic.
 
 > [!important] These are committed on purpose
-> [[ADR-001-Deterministic-Demo-First]] makes the demo run from this directory
+> [[PRD]] §29 makes the demo run from this directory
 > with the network disabled. `.gitignore` deliberately does not exclude it.
 
 ## Contents

@@ -35,7 +35,7 @@ vehicles and vulnerable road users, including pedestrians and cyclists.
 > The system does not claim to predict crashes with scientific certainty. It
 > surfaces potentially dangerous visual interactions and the evidence behind
 > them, so a human can decide whether a location deserves further
-> investigation — see [[ADR-002-Visual-Conflict-Proxy]].
+> investigation — see [[PRD]] §29.
 
 ## Why it matters
 
@@ -43,8 +43,9 @@ See [[02-Problem-Statement]].
 
 ## How it works (one level deep)
 
-See [[02-High-Level-Design]]. The pipeline in [[PRD]] §15 runs: frame sampler →
-vision provider → object tracker → trajectory extractor → conflict-risk engine →
+See [[02-High-Level-Design]]. The pipeline in [[PRD]] §16 runs: source adapter →
+provenance and freshness record → frame sampler → vision provider → object
+tracker → trajectory extractor → temporal-evidence gate → conflict-risk engine →
 evidence package → context and explanation providers → event report.
 
 ## What's deliberately not in it

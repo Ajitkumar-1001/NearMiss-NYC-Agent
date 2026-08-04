@@ -28,7 +28,7 @@ A near miss is: {{NEARMISS_DEFINITION}}
 ## Our proxy and its limits
 
 We approximate the above from monocular video — see
-[[ADR-002-Visual-Conflict-Proxy]]. State plainly what the proxy cannot know
+[[PRD]] §29. State plainly what the proxy cannot know
 (true distance, intent, driver reaction).
 
 ## Ethical framing
@@ -36,4 +36,4 @@ We approximate the above from monocular video — see
 Surveillance, bias, and misuse considerations: [[10-Responsible-AI]].
 
 ---
-Related: [[ADR-002-Visual-Conflict-Proxy]] · [[10-Responsible-AI]] · [[04-Vision-Evaluation]] · [[03-Prior-Art]]
+Related: [[PRD]] §29 · [[10-Responsible-AI]] · [[04-Vision-Evaluation]] · [[03-Prior-Art]]

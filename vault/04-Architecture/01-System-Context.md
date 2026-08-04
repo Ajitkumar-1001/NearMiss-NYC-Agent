@@ -27,9 +27,9 @@ graph LR
 
 ## Trust boundaries
 
-There is no authentication — see [[ADR-005-No-Authentication]]. That makes the
+There is no authentication — see [[PRD]] §29. That makes the
 deployment boundary the only real control; note the implication in
 [[08-Deployment]].
 
 ---
-Related: [[02-High-Level-Design]] · [[08-Deployment]] · [[ADR-005-No-Authentication]] · [[01-Project-Overview]]
+Related: [[02-High-Level-Design]] · [[08-Deployment]] · [[PRD]] §29 · [[01-Project-Overview]]

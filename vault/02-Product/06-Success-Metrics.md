@@ -8,8 +8,9 @@ status: active
 # Success Metrics
 
 > [!info] Source
-> [[PRD]] §23, plus NFR-001 and NFR-003 (§14) and the demo gates in §22.5.
-> Targets are set here in advance; nothing is measured yet.
+> [[PRD]] §25, plus NFR-005 and NFR-006 (§15). The demo-reliability gates
+> formerly at v1 §22.5 now live at NFR-005 (§15) too, not under §24
+> Evaluation plan. Targets are set here in advance; nothing is measured yet.
 
 ## Product metrics
 
@@ -20,13 +21,15 @@ status: active
 | Score decomposition | Risk score visibly broken into named factors | all 4 factors shown | — | [[05-QA-Checklist]] |
 | Mode disclosure | Active processing mode labelled on screen, never disguised | 1 mode, always visible | — | [[05-QA-Checklist]] |
 | Public-data correlation | One meaningful historical-context correlation displayed and sourced | 1 | — | [[05-QA-Checklist]] |
-| P0 replay latency | Time from user action to replay starting (NFR-003) | < 2 s | — | [[05-Demo-Reliability]] |
-| P1 processing time | Runtime analysis of the demo clip (NFR-003) | < 60 s | — | [[05-Demo-Reliability]] |
+| P0 replay latency | Time from user action to replay starting (NFR-006) | < 2 s | — | [[05-Demo-Reliability]] |
+| P1 processing time | Runtime analysis of the demo clip (NFR-006) | < 60 s | — | [[05-Demo-Reliability]] |
 
 ## Engineering metrics
 
 | Metric | Target | Actual |
 |---|---|---|
+| Cloud Run eligibility gate (hard gate, [[PRD]] §2.2, §11.1) | passed | — |
+| Public demo URL | working | — |
 | P0 deployment success rate during pre-demo checks | 100% | — |
 | Unhandled exceptions on the golden path | 0 | — |
 | External providers without a fallback | 0 | — |
@@ -36,7 +39,7 @@ status: active
 ## Model / pipeline metrics
 
 Defined and measured in [[04-Vision-Evaluation]] and [[03-Agent-Evaluation]].
-These are pass/fail gates, not scores — [[PRD]] §22 does not define numeric
+These are pass/fail gates, not scores — [[PRD]] §24 does not define numeric
 accuracy targets, and none should be invented.
 
 | Metric | Target | Actual |
@@ -50,14 +53,18 @@ accuracy targets, and none should be invented.
 
 ## Demo metrics
 
-Reliability targets live in [[05-Demo-Reliability]]. The submission gates from
-[[PRD]] §22.5 and NFR-001:
+Reliability targets live in [[05-Demo-Reliability]]. The submission gates now
+live at [[PRD]] NFR-005 (§15) — this content moved out of the old §22.5
+"Demo reliability gates" subsection, which no longer exists as such; it is
+not restated under §24 Evaluation plan:
 
 | Gate | Target | Actual |
 |---|---|---|
-| Consecutive successful local P0 runs | 10/10 | — |
-| Consecutive successful deployed P0 runs | 5/5 | — |
-| Successful runtime P1 runs where credentials permit | 3/3 | — |
+| Consecutive successful local captured-replay runs | 10/10 | — |
+| Consecutive successful deployed captured-replay runs | 5/5 | — |
+| Successful real-source fetches through the deployed service | 3/3 | — |
+| Successful real-source perception runs where credentials permit | 3/3 | — |
+| Verified public-access test from an independent browser/device | 1/1 | — |
 | Recorded backup demo saved locally | yes | — |
 | Screenshots saved locally | yes | — |
 

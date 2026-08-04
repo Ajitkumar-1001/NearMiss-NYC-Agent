@@ -12,7 +12,7 @@ status: draft
 - [ ] Is the critical path identified? → [[02-Time-Box-Plan]]
 - [ ] Does anything block parallel work? → [[04-Task-Board]]
 - [ ] Are provider failures handled at the adapter? → [[07-Provider-Adapters]]
-- [ ] Does the whole thing run offline? → [[ADR-001-Deterministic-Demo-First]]
+- [ ] Does the whole thing run offline? → [[PRD]] §29
 - [ ] Are contracts agreed before implementation? → [[05-API-Contracts]]
 - [ ] Is there a rollback path? → [[08-Deployment]]
 

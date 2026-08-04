@@ -22,8 +22,8 @@ reads.
 3. **Move the content there**, in that note's own structure. Don't paste a capture
    verbatim into a section that wants a table row.
 4. **Record the decision if there was one** — [[05-Decision-Log]] for small calls,
-   an ADR via [[ADR-Template]] plus a row in [[00-ADR-Index]] if it constrains the
-   build.
+   a new entry in [[PRD]] §30 via the §31 change-control protocol if it
+   constrains the build.
 5. **Delete the capture.**
 
 ## What belongs here
@@ -38,13 +38,15 @@ source for yet.
 - Work items. Those go on [[04-Task-Board]].
 - Blockers. Those go on [[07-Blocker-Log]] immediately.
 - Anything contradicting [[PRD]] — the PRD wins, so raise it as a PRD change per
-  [[PRD]] §30 rather than parking a contradiction here.
+  [[PRD]] §31 rather than parking a contradiction here.
 
 ## Current queue
 
-The six open questions seeded from [[PRD]] §29. Each names its own triage
+The six open questions seeded from [[PRD]] §30. Each names its own triage
 destination; each is answerable during the event without invalidating the
-product thesis.
+product thesis. Two — [[Camera-Source]] and [[Roboflow-Model]] — are now
+substantially narrowed by the new [[PRD]] §18 approved data-source policy and
+§17 model/license policy, though neither is fully closed yet.
 
 New captures start from [[Capture]].
 

@@ -14,7 +14,7 @@ The operational sequence. Follow it rather than improvising at hour 20.
 - [ ] Repo cloned and running on every machine
 - [ ] `.env` populated from `.env.example`
 - [ ] Sponsor credits claimed → [[03-Sponsor-Resources]]
-- [ ] Fixtures recorded → [[ADR-001-Deterministic-Demo-First]]
+- [ ] Fixtures recorded → [[PRD]] §29
 - [ ] Roles agreed
 
 ## During

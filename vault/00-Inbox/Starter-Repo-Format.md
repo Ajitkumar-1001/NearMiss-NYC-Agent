@@ -17,8 +17,9 @@ status: draft
 
 **Answer this one first.** It is the only open question that can invalidate an
 already-accepted decision. A mandatory starter repo or submission format could
-override [[ADR-007-FastAPI-Backend]] and [[ADR-008-Nextjs-Dashboard]] — the
-latter carries an explicit escape hatch written for exactly this case.
+override the FastAPI backend and Next.js dashboard decisions locked in
+[[PRD]] §29 — the latter is already qualified there as "preferred but not
+allowed to endanger the Cloud Run agent".
 
 Every hour spent building on the wrong scaffold before this is answered is an
 hour spent twice.

@@ -12,7 +12,7 @@ Exact clicks and words. The story behind it is [[07-Demo-Story]].
 ## Pre-flight
 
 - [ ] Fixtures loaded, app at start state
-- [ ] Network off (proving [[ADR-001-Deterministic-Demo-First]])
+- [ ] Network off (proving [[PRD]] §29)
 - [ ] Browser zoom / resolution set for the projector
 - [ ] Notifications silenced
 

@@ -22,6 +22,7 @@ status: active
 
 ## Supporting jobs
 
+- Verify that the source is a real NYC feed and see when it was fetched.
 - Replay the relevant video segment with visible tracks.
 - Identify the road users involved in the potential conflict.
 - See the factors contributing to the risk score.
@@ -49,10 +50,12 @@ is **not** designed for:
 - Insurance adjudication
 - Individual behaviour scoring
 - Facial recognition or personal identification
+- License-plate recognition
+- Demographic inference
 - Fully autonomous infrastructure decisions
 
 These are load-bearing constraints, not preferences — see
-[[ADR-006-No-Identity-Recognition]] and [[10-Responsible-AI]].
+[[PRD]] §29 and [[10-Responsible-AI]].
 
 ---
-Related: [[PRD]] · [[02-Problem-Statement]] · [[04-MVP-Scope]] · [[07-Demo-Story]] · [[ADR-006-No-Identity-Recognition]]
+Related: [[PRD]] · [[02-Problem-Statement]] · [[04-MVP-Scope]] · [[07-Demo-Story]] · [[PRD]] §29

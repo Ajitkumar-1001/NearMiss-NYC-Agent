@@ -25,7 +25,7 @@ Candidate and chosen datasets. One [[Dataset-Card]] per dataset we actually use.
 ## Local copies
 
 Fixtures derived from these live in `demo/fixtures/` and are committed
-deliberately, per [[ADR-001-Deterministic-Demo-First]].
+deliberately, per [[PRD]] §29.
 
 ---
-Related: [[02-Live-Feeds]] · [[Dataset-Card]] · [[04-Computer-Vision-Notes]] · [[ADR-001-Deterministic-Demo-First]]
+Related: [[02-Live-Feeds]] · [[Dataset-Card]] · [[04-Computer-Vision-Notes]] · [[PRD]] §29

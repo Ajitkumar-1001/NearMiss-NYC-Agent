@@ -11,7 +11,7 @@ The narrative the demo tells. Beat-by-beat staging is in [[04-Demo-Script]];
 this note is the story, not the stage directions.
 
 > [!info] Source
-> [[PRD]] §11.2 (golden demo flow) and §11.3 (five-second comprehension).
+> [[PRD]] §12.2 (golden demo flow) and §12.3 (five-second comprehension).
 
 ## Setup
 
@@ -32,11 +32,15 @@ shoulder.
    box; every part of it is on screen.
 4. **Proof it generalises** — historical collision context for the location
    appears, sourced and visibly separated from what the clip showed. The
-   presenter can then switch to runtime analysis to prove the pipeline is not a
-   static mock.
+   presenter then runs live analysis against the configured NYC source — no
+   longer an optional aside proving the pipeline isn't a mock, but a required P0
+   step in its own right ([[PRD]] §11.1), with an explicit `Insufficient
+   temporal evidence` outcome shown when the source lacks enough evidence,
+   rather than a forced alert.
 5. **Close** — the explanation panel states the observations, the limitations,
    and the recommended human-review action. The system says what it does not
-   know.
+   know, and closes on the privacy boundary: no face recognition, plate
+   recognition, identity inference, or automated enforcement ([[PRD]] §12.2).
 
 ## What the audience should remember
 
@@ -51,12 +55,19 @@ Without narration, the UI must visibly answer:
 - Where is the possible conflict?
 - How serious is the visual risk proxy?
 - Why was it flagged?
+- Is there enough temporal evidence to support a conflict result?
+- Which NYC source is being analyzed, and when was it retrieved?
 - Is this live/runtime output or a replay fixture?
 
-> [!note] The demo runs on fixtures
-> Per [[ADR-001-Deterministic-Demo-First]], the story must hold with recorded
-> data. Live data is a bonus beat, never a dependency. Beat 4's runtime switch is
-> the only beat allowed to fail without breaking the story.
+> [!note] Real-feed analysis is now P0; captured replay is the guaranteed fallback
+> [[PRD]] §11.1 promotes real-feed analysis of a live NYC source from P2 to P0,
+> superseding the v1.0 framing in [[PRD]] §29 that live
+> data is "a bonus beat, never a dependency." Per §10 principle 2, live analysis
+> now proves the connection while captured replay proves the complete event
+> workflow — captured replay stays the guaranteed evidence demonstration and the
+> fallback if the live source or network fails (FR-015, §14; locked decision,
+> §29). An `insufficient_temporal_evidence` live result is an explicit, valid
+> outcome (§13, §29), not a beat allowed to fail.
 
 ---
-Related: [[PRD]] · [[04-Demo-Script]] · [[01-30-Second-Pitch]] · [[ADR-001-Deterministic-Demo-First]] · [[05-Demo-Reliability]]
+Related: [[PRD]] · [[04-Demo-Script]] · [[01-30-Second-Pitch]] · [[PRD]] §29 · [[05-Demo-Reliability]]

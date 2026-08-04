@@ -14,7 +14,7 @@ UI for the demo.
 - Consumes only the endpoints in [[05-API-Contracts]]
 - Must be legible on a projector — [[04-Design-Review]]
 - Demo path must not depend on network calls at render time —
-  [[ADR-001-Deterministic-Demo-First]]
+  [[PRD]] §29
 
 ## Run
 

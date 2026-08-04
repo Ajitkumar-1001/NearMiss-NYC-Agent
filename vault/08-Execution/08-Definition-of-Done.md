@@ -20,21 +20,29 @@ A task is done when **every** box is ticked. No partial credit.
 ## P0 — hackathon-complete
 
 > [!info] Source
-> [[PRD]] §24, verbatim. P1 and P2 are enhancements and do not change this list.
+> [[PRD]] §26, verbatim. P1 and P2 are enhancements and do not change this list.
 
-- [ ] Deployed dashboard loads without authentication
+- [ ] Agent is deployed on Google Cloud Run
+- [ ] Agent is publicly reachable without authentication
 - [ ] `GET /health` returns HTTP 200
-- [ ] Bundled clip plays correctly
-- [ ] Bounding boxes and trajectory trails are visible
-- [ ] One supported potential-conflict event is highlighted
+- [ ] Service binds to `0.0.0.0:$PORT`
+- [ ] A real NYC source is configured and attributed
+- [ ] The deployed service has fetched and analyzed the real source successfully
+- [ ] Live-source result shows source, retrieval time, freshness, provider, and processing mode
+- [ ] A valid no-conflict or insufficient-evidence state is implemented
+- [ ] Captured evidence sequence plays correctly
+- [ ] Bounding boxes and trajectory trails are visible in the evidence case
+- [ ] One supported candidate conflict is highlighted
 - [ ] Risk score and factor breakdown are displayed
-- [ ] Cached historical context is displayed and sourced
+- [ ] Cached or runtime historical context is displayed and sourced
 - [ ] Structured explanation and limitations are displayed
-- [ ] Processing mode is labelled `Demonstration replay`
-- [ ] Core demo works without runtime external APIs
-- [ ] README includes setup, architecture, limitations, and demo instructions
+- [ ] Every fallback is labeled
+- [ ] Core captured-replay demo works without runtime external APIs
+- [ ] Public repo includes README, architecture, deployment instructions, source policy, privacy boundaries, and demo instructions
+- [ ] A permissive license is present
 - [ ] Backup recording and screenshots exist locally
 - [ ] Presenter can complete the golden demo in under two minutes
+- [ ] Submission artifacts are ready before 8:15 PM, leaving buffer before the 8:30 PM lock
 
 ## For the project
 

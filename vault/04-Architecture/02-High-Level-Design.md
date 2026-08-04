@@ -22,7 +22,7 @@ graph TD
 ## Shape
 
 One orchestrated pipeline rather than independent services — rationale in
-[[ADR-004-Single-Orchestrated-Pipeline]].
+[[PRD]] §29.
 
 ## Components
 
@@ -32,8 +32,8 @@ One orchestrated pipeline rather than independent services — rationale in
 
 ## Key constraints
 
-- Must run end-to-end on fixtures ([[ADR-001-Deterministic-Demo-First]])
-- Model/vendor choices isolated behind adapters ([[ADR-003-Provider-Adapter-Architecture]])
+- Must run end-to-end on fixtures ([[PRD]] §29)
+- Model/vendor choices isolated behind adapters ([[PRD]] §29)
 
 ---
-Related: [[01-System-Context]] · [[03-Data-Flow]] · [[04-Component-Design]] · [[ADR-004-Single-Orchestrated-Pipeline]]
+Related: [[01-System-Context]] · [[03-Data-Flow]] · [[04-Component-Design]] · [[PRD]] §29

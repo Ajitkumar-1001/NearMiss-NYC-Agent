@@ -19,7 +19,8 @@ agents pick up the same conventions.
 - Wikilinks use the full basename including number prefix.
 - `[[README]]` refers only to the root README; four other README files exist and
   must not be used as link targets.
-- Decisions that constrain the build become ADRs in `07-Decisions/`.
+- Decisions that constrain the build go in [[PRD]] §29; changing one follows the
+  §31 change-control protocol. There is no ADR folder.
 
 ## Before finishing an edit
 

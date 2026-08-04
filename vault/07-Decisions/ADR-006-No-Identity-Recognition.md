@@ -9,7 +9,7 @@ status: active
 
 ## Status
 
-Accepted — [[PRD]] §27, approved for v1.0.
+Accepted — [[PRD]] §29, approved for v2.0.
 
 ## Context
 
@@ -18,11 +18,11 @@ That capability is one small step from surveillance, and the step is easy to
 take by accident — a detector that finds "person" is a short distance from a
 model that recognises *which* person.
 
-[[PRD]] §21 draws the line explicitly in its first three requirements: no face
-recognition, no plate recognition, no demographic inference. §8 restates it as a
-non-goal, §5.3 excludes law-enforcement identification and automated enforcement
-from the target users, and NFR-008 forbids identity inference and long-term
-storage of unnecessary raw video.
+[[PRD]] §23 draws the line explicitly in its first four requirements: no face
+recognition, no plate recognition, no demographic inference, no re-identification.
+§9 restates it as a non-goal, §6.3 excludes law-enforcement identification and
+automated enforcement from the target users, and NFR-011 forbids identity
+inference and long-term storage of unnecessary raw video.
 
 This is the decision that makes the product defensible rather than merely legal,
 and it is the one most likely to be eroded by a well-meaning feature request.
@@ -35,7 +35,7 @@ recognition, demographic inference, individual behaviour scoring, or any form of
 personal identification — and will not store raw video longer than processing
 requires.
 
-Detections carry a class name from the FR-002 set and a track identifier that is
+Detections carry a class name from the FR-005 set and a track identifier that is
 scoped to a single clip. Track identifiers are not identities and must never be
 correlated across clips.
 

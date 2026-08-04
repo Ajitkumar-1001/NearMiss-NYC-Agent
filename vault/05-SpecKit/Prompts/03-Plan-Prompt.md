@@ -28,4 +28,4 @@ as {{UPPER_SNAKE}} placeholders and list them as open questions.
 > Tune the prompt after first use; record what worked in [[Experiment-Log]].
 
 ---
-Related: [[02-High-Level-Design]] · [[04-Component-Design]] · [[00-ADR-Index]] · [[02-Workflow]]
+Related: [[02-High-Level-Design]] · [[04-Component-Design]] · [[PRD]] §29 · [[02-Workflow]]

@@ -21,7 +21,7 @@ Specify → Clarify → Plan → Tasks → Analyze → Implement. Each stage has
 ## Rules
 
 - Don't skip Clarify. Ambiguity found at Implement costs the most.
-- Anything constraining later stages becomes an ADR ([[ADR-Template]]).
+- Anything constraining later stages goes in [[PRD]] §29 (change control: §31).
 - Principles in [[01-Constitution]] override the output of any stage.
 
 > [!todo] Not filled in yet

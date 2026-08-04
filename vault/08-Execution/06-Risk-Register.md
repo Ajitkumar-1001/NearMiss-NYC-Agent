@@ -8,26 +8,41 @@ status: active
 # Risk Register
 
 > [!info] Source
-> [[PRD]] §26. Impact and mitigation are the PRD's; **Likelihood is deliberately
-> blank** — §26 does not estimate it, and a guessed likelihood would drive real
+> [[PRD]] §28. Impact and mitigation are the PRD's; **Likelihood is deliberately
+> blank** — §28 does not estimate it, and a guessed likelihood would drive real
 > cut decisions. Fill it from observation, not intuition.
 
 | # | Risk | Likelihood | Impact | Mitigation | Owner | Status |
 |---|---|---|---|---|---|---|
-| 1 | Venue network unusable | | High | Offline demo path; P0 works after the app has loaded ([[PRD]] §7 G4) | Ajit | open |
-| 2 | Live feed unavailable | | High | Uploaded and bundled clips | Ajit | open |
-| 3 | No near-miss occurs live | | High | Reproducible demonstration clip | Ajit | open |
-| 4 | Detection misses cyclist or pedestrian | | High | Validate the clip early; fixture detections | Ajit | open |
-| 5 | Tracking identity switches | | Medium | Short clip; smoothing; precomputed tracks | Ajit | open |
-| 6 | Perspective invalidates metric claims | | High | Image-space visual conflict-risk proxy ([[ADR-002-Visual-Conflict-Proxy]]) | Ajit | open |
-| 7 | Gemini fails or hallucinates | | High | Schema constraints and template fallback | Ajit | open |
-| 8 | NYC Open Data API fails | | Medium | Cached normalized context | Ajit | open |
-| 9 | Deployment failure | | High | Deploy the health skeleton early; preserve a known-good revision ([[ADR-009-Cloud-Run-Deployment]]) | Ajit | open |
-| 10 | UI consumes excessive time | | Medium | Single dashboard; no auth; fixture-first development | Ajit | open |
-| 11 | Judges interpret output as crash prediction | | High | Explicit terminology and visible limitations ([[ADR-002-Visual-Conflict-Proxy]]) | Ajit | open |
+| 1 | Not deployed on Cloud Run | | Disqualification | Deploy health skeleton first and preserve revision ([[PRD]] §29) | Ajit | open |
+| 2 | Public access blocked by organization policy | | Disqualification | Use personal Gmail or `--no-invoker-iam-check` | Ajit | open |
+| 3 | Container binds to localhost/wrong port | | High | Bind to `0.0.0.0:$PORT`; test locally and deployed | Ajit | open |
+| 4 | Venue network unusable | | High | Offline demo path; P0 works after the app has loaded ([[PRD]] G6, §8) | Ajit | open |
+| 5 | Live feed unavailable | | High | Uploaded and bundled clips | Ajit | open |
+| 6 | Official feed requires signed agreement | | High | Do not depend on bulk feed; use approved accessible REST/still source ([[PRD]] §18) | Ajit | open |
+| 7 | No near-miss occurs live | | High | Reproducible demonstration clip | Ajit | open |
+| 8 | Duplicate camera stills create false motion | | High | Content hashing and temporal-evidence gate | Ajit | open |
+| 9 | Detection misses cyclist or pedestrian | | High | Validate the clip early; fixture detections | Ajit | open |
+| 10 | Tracking identity switches | | Medium | Short clip; smoothing; precomputed tracks | Ajit | open |
+| 11 | Perspective invalidates metric claims | | High | Image-space visual conflict-risk proxy ([[PRD]] §29) | Ajit | open |
+| 12 | Gemini fails or hallucinates | | High | Schema constraints and template fallback | Ajit | open |
+| 13 | NYC Open Data API fails | | Medium | Cached normalized context | Ajit | open |
+| 14 | UI consumes excessive time | | Medium | Single dashboard; no auth; fixture-first development | Ajit | open |
+| 15 | Judges interpret output as crash prediction | | High | Explicit terminology and visible limitations ([[PRD]] §19.1) | Ajit | open |
+| 16 | License conflict | | Medium | RF-DETR + MIT/Apache defaults; avoid AGPL default ([[PRD]] §17) | Ajit | open |
 
-Risks 2–11 are [[PRD]] §26 verbatim. Risk 1 is the venue-internet case named in
-[[PRD]] §7 G4 and is the reason [[ADR-001-Deterministic-Demo-First]] exists.
+Rows 1–3, 6, 8, and 16 are new for v2.0 — [[PRD]] §26 (v1) had no equivalent for
+the Cloud Run disqualification risks (rows 1–2) or wrong-port binding (row 3);
+their Risk/Impact/Mitigation cells are [[PRD]] §28 verbatim. Rows 5, 7, 9–10,
+12–13 restate the same risks that were in v1's §26, but §28 reworded most of
+the PRD-side mitigation text since then (e.g. "fixture detections" is now
+"stored detections fallback") — treat those cells as this note's paraphrase,
+not a current quotation; reread §28 before citing them as a direct source. Row
+4 is the venue-internet case named in [[PRD]] G6 (§8; this was G4 in v1) and is
+the reason [[PRD]] §29 exists. Row 11 (perspective) still matches §29's
+framing. Row 15 (judges reading the score as crash prediction) is no longer
+its own row in §28 — v2 defines that safeguard in [[PRD]] §19.1 (Risk
+semantics) instead.
 
 ## Review
 

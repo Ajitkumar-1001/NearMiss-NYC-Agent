@@ -37,4 +37,4 @@ Stated precisely enough that someone could disagree with it.
 | | |
 
 ---
-Add a row to [[00-ADR-Index]] when this is created.
+Add a row to [[PRD]] §29 when this is created.

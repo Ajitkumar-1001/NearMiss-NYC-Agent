@@ -9,7 +9,7 @@ status: draft
 
 - **Method / path:**
 - **Purpose:**
-- **Auth:** none — see [[ADR-005-No-Authentication]]
+- **Auth:** none — see [[PRD]] §29
 
 ## Request
 

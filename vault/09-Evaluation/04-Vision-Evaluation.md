@@ -29,7 +29,7 @@ Quality of detection, tracking, and conflict scoring.
 
 ## Known limits
 
-The score is a proxy, not a measurement — [[ADR-002-Visual-Conflict-Proxy]] and
+The score is a proxy, not a measurement — [[PRD]] §29 and
 [[05-Safety-Methodology]]. Report it as such in [[02-2-Minute-Pitch]].
 
 ## Results log
@@ -37,4 +37,4 @@ The score is a proxy, not a measurement — [[ADR-002-Visual-Conflict-Proxy]] an
 Record runs as [[Experiment-Log]] notes; summarise here.
 
 ---
-Related: [[ADR-002-Visual-Conflict-Proxy]] · [[05-Safety-Methodology]] · [[06-Success-Metrics]] · [[Model-Card]]
+Related: [[PRD]] §29 · [[05-Safety-Methodology]] · [[06-Success-Metrics]] · [[Model-Card]]

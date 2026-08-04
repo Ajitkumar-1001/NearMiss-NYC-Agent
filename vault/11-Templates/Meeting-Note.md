@@ -24,5 +24,5 @@ status: draft
 - [ ]
 
 ---
-Decisions belong in [[05-Decision-Log]]; if they constrain the build, write an
-ADR from [[ADR-Template]].
+Decisions belong in [[05-Decision-Log]]; if they constrain the build, they go in
+[[PRD]] §29 via the §31 change-control protocol.

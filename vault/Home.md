@@ -33,11 +33,10 @@ a PRD version bump.
 | 04 | Architecture | [[01-System-Context]] |
 | 05 | SpecKit | [[01-Constitution]] |
 | 06 | gstack | [[01-Workflow]] |
-| 07 | Decisions | [[00-ADR-Index]] |
 | 08 | Execution | [[01-Hackathon-Runbook]] |
 | 09 | Evaluation | [[01-Test-Strategy]] |
 | 10 | Pitch | [[01-30-Second-Pitch]] |
-| 11 | Templates | [[ADR-Template]] |
+| 11 | Templates | [[Capture]] |
 | 12 | Logs | [[Progress-Log]] |
 
 ## Working set
