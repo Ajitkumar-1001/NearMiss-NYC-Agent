@@ -322,7 +322,33 @@ W-13's row carries the dependency.
 
 | Task | Owner | Verified by |
 |---|---|---|
-| — | — | Nothing has been verified done. |
+| W-4 install and authenticate `gcloud` | Ajit | `gcloud auth list` → `sachinajitkumarpr@gmail.com`; project `nearmiss-nyc-agent` |
+| W-1/W-2/W-3 GCP project, billing, API enablement | Ajit | `gcloud services list --enabled` → `run`, `cloudbuild`, `artifactregistry` |
+| W-5 deploy to Cloud Run | Fri 5:02 PM | `nearmiss-nyc-00001-cr7` serving 100% traffic |
+| W-6 verify logged-out | Fri 5:04 PM | `curl` with no credentials: `/health` 200, `/api/v1/demo` 200; IAM policy shows `allUsers` |
+| W-7 record rollback command | Fri 5:06 PM | [[08-Deployment]] Rollback — literal command and known-good revision |
+| B-1 application + container | Fri 5:02 PM | `GET /health` 200 from the deployed URL, `git_revision` `2f6bd53` |
+| B-2 fixtures, deployed half | Fri 5:04 PM | `GET /api/v1/demo` → risk **84.3**, severity high, matching Thursday's local runs |
+| D-2 commit the fixtures | Fri 4:5x PM | `git ls-tree origin/main` lists `demo/fixtures/*.json` |
+| D-4 LICENSE + root README | Fri 4:5x PM | Apache-2.0 (canonical text) and `README.md` at repo root, pushed |
+| D-5 deviation log | Fri 5:05 PM | [[05-Decision-Log]] "Friday 7 August — event day" |
+| T-19 six §11.3 surfaces | Fri 5:10 PM | `GET /` 200, 13,377 bytes; all six surfaces render from the deployed service |
+| T-20 finalize demo script | Fri 5:20 PM | [[04-Demo-Script]] — zero `{{` placeholders, every number read off the deployed URL |
+| §26.2 check — golden run ×3 | Fri 5:04 PM | Three consecutive `/api/v1/demo` responses byte-identical, sha `9d092c1de1097d42` |
+
+> [!warning] Three §26.1 checks are still red, and stay red
+> **Check 5/6 (captured-evidence baseline)** — the sequence is synthetic, not a
+> source-attributed NYC capture. **W-13/W-14 (source adapter and real capture)** —
+> not built; §2.2's "at least one working real-source analysis endpoint" is
+> therefore only partially met. **Checks 9/10 (`vision-conflict-analytics`)** —
+> the package does not exist and scoring is still private in `risk.py`.
+> All three are disclosed in the root `README.md` Limitations section and in
+> [[04-Demo-Script]]'s "The question you will be asked". Do not mark them green.
+
+> [!caution] The rehearsal log in [[04-Demo-Script]] is still empty
+> Three byte-identical API responses are **not** a demo rehearsal. §26.2 wants
+> three successes driven through the page, and [[08-Definition-of-Done]] wants
+> two clean end-to-end runs. Those rows get filled by running it, or not at all.
 
 > [!note] Done means done
 > A task moves to Done only when its done condition above is met — not when the
