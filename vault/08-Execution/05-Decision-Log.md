@@ -118,5 +118,60 @@ Practical consequence for this log: from here, most entries will be **scope cuts
 Record each cut with the time it was taken and the kill-order rung it came from, so the submission
 notes can state honestly what was dropped and why.
 
+## Friday 7 August — event day
+
+### 5:05 PM — D-5 deviation log (overdue; D-5 was due Thursday 7:50 PM)
+
+The §27.1 Thursday 8:00 PM readiness decision **passed without being taken**. No
+entry was written at the time. Recording it now, late, rather than leaving the
+gate silently unresolved.
+
+What actually happened against the two §11.1 baselines:
+
+- **Deployment baseline — MISSED Thursday, cleared Friday 5:02 PM.** No GCP
+  project, no billing, no `gcloud`, nothing deployed as of Friday morning. The
+  service is now live at
+  `https://nearmiss-nyc-711121860771.us-east1.run.app`, revision
+  `nearmiss-nyc-00001-cr7`. §2.2 is satisfied: public without authentication
+  (`allUsers`), `/health` 200, revision identified in the payload.
+- **Captured-evidence baseline — RED, and cut.** The sequence is synthetic, not a
+  source-attributed NYC capture. W-14 was never done and cannot be done inside
+  §11.2's configuration-only window. Disclosed in the root `README.md`
+  Limitations section rather than papered over.
+
+Deviations from the plan, each deliberate:
+
+| Deviation | Reason |
+|---|---|
+| D-0 through D-4 never ran as separate `/implement` invocations | The work they described was already done; running the ceremony would have consumed the gate window |
+| LICENSE is Apache-2.0, replacing the stub repo's auto-generated MIT | Both satisfy §11.1 baseline 5; Apache-2.0's patent grant suits the reusable analytics package |
+| `.specify/` gitignored, not committed | Stock SpecKit scaffolding appeared 11:42 AM carrying an unfilled template constitution that would compete with [[01-Constitution]] |
+| Remote merged with `--allow-unrelated-histories` rather than force-pushed | `origin/main` was a GitHub stub; merging discarded nothing |
+| Six §11.3 judge surfaces not built | `app/frontend/src/` is empty. Kill-order rung 1 (visual polish). See the organizer note below — a feed dashboard is actively discouraged |
+
+### 5:10 PM — organizer slides close three §30 questions
+
+From the kickoff slides ("Today's event" and "Do not (suggestions)"):
+
+1. **Cloud Run exclusivity — CONFIRMED.** The slide reads "The only requirement:
+   your agent must be deployed on Google Cloud Run." §2.1 previously classed this
+   as organizer-stated but the *exclusivity* as unverified. It is now verified.
+2. **Starter repo not mandatory.** "Starter packs include a working example" —
+   offered, not required. The §30 default holds: keep this repo, adapt metadata.
+3. **Build time is ~3 hours**, not the 105 minutes [[02-Time-Box-Plan]] assumed.
+
+Two organizer instructions bear directly on scope:
+
+- *"Don't hardcode one camera ID and pray. Cameras go offline, so handle it or
+  have a fallback feed."* The §17 fallback ladder answers this literally, and
+  discloses which rung served via `processing_mode` and `notices`. This is a
+  pitch point, not just an implementation detail.
+- *"Don't make a dashboard that just displays a camera feed."* This lowers the
+  cost of the cut above — the missing dashboard is less damaging than it looked.
+
+Against the slides' framing, the remaining gap is that "live NYC feeds" is the
+spine of the event and our live path degrades to a synthetic fixture. That is now
+the highest-value remaining work, not the UI.
+
 ---
 Related: [[00-Source-of-Truth-PRD|PRD]] §29 · §30 · §31 · §32.3 · [[03-Scope-Ladder]] · [[07-Blocker-Log]] · [[01-Datasets]] · [[01-Constitution]]

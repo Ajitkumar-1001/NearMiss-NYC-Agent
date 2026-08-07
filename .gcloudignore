@@ -1,0 +1,31 @@
+# Build context for `gcloud run deploy --source .`.
+#
+# The Dockerfile only needs app/backend/ and demo/fixtures/. Everything below is
+# either huge (virtualenvs, node_modules) or irrelevant to the image (the
+# markdown vault). Keeping them out is the difference between a fast build and
+# a several-hundred-megabyte upload.
+#
+# Note: demo/fixtures/ is deliberately NOT ignored — ADR-001 makes those files
+# load-bearing runtime data, and an image without them fails on first analysis.
+
+.git/
+.gitignore
+
+# Virtualenvs
+.venv/
+**/.venv/
+__pycache__/
+**/__pycache__/
+*.py[cod]
+*.egg-info/
+
+# Frontend deps (no frontend in the image)
+node_modules/
+**/node_modules/
+.next/
+
+# Planning vault — markdown only, not runtime data
+vault/
+
+# Stock SpecKit scaffolding
+.specify/

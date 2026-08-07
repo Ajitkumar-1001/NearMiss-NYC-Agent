@@ -12,7 +12,7 @@ status: active
 | Piece | Host | URL | Deployed by |
 |---|---|---|---|
 | Frontend | Either a separately deployed Next.js app or a lightweight frontend served by the Cloud Run service — [[00-Source-of-Truth-PRD\|PRD]] §16.1 leaves the choice open and states the dashboard's location is **not** the eligibility gate | {{FE_URL}} | {{FE_DEPLOY_MECHANISM}} |
-| Backend | Google Cloud Run, public endpoint, FastAPI — [[00-Source-of-Truth-PRD\|PRD]] §16.1 "Mandatory agent service" | {{BE_URL}} | `gcloud` CLI; §27.1 requires the deploy and rollback commands to be recorded on Tuesday, August 4 |
+| Backend | Google Cloud Run, public endpoint, FastAPI — [[00-Source-of-Truth-PRD\|PRD]] §16.1 "Mandatory agent service" | `https://nearmiss-nyc-711121860771.us-east1.run.app` | `gcloud` CLI; deploy and rollback commands recorded under Rollback below |
 
 The gate itself lives in [[00-Source-of-Truth-PRD|PRD]] §2.2 and is locked in §29
 ("Public Google Cloud Run agent is mandatory") — not restated here. See
@@ -107,20 +107,47 @@ Two deploy-time settings need confirming against the PRD once a revision exists:
 
 ## Rollback
 
-- [ ] How do we get back to the last working build fast? → [[05-Demo-Reliability]]
+- [x] How do we get back to the last working build fast? → [[05-Demo-Reliability]]
 
-§11.1's deployment baseline requires a **known-good revision and rollback command
-recorded** as part of pre-event readiness, and §27.1 puts recording the deploy and
-rollback commands on Tuesday, August 4. Neither the revision nor the command is
-recorded anywhere in this vault yet, so the box stays unchecked. Fill it with the
-literal command, not a description of one — under §27.2's 7:00 PM freeze there is
-no time to reconstruct it.
+**Known-good revision: `nearmiss-nyc-00001-cr7`** (git `2f6bd53`), deployed
+Friday 7 August, 5:02 PM ET. Verified serving 100% of traffic.
+
+Rollback — the literal command, per §11.1's requirement that it be recorded
+rather than described:
+
+```bash
+gcloud run services update-traffic nearmiss-nyc --region us-east1 \
+  --to-revisions nearmiss-nyc-00001-cr7=100
+```
+
+List revisions before choosing a target:
+
+```bash
+gcloud run revisions list --service nearmiss-nyc --region us-east1
+```
+
+Deploy command that produced this revision:
+
+```bash
+gcloud run deploy nearmiss-nyc --source . --region us-east1 \
+  --allow-unauthenticated --concurrency 1 --min-instances 1 --max-instances 10 \
+  --set-env-vars GIT_REVISION=$(git rev-parse --short HEAD)
+```
+
+> [!warning] `--min-instances 1` bills continuously
+> Set it back to 0 after the event: `gcloud run services update nearmiss-nyc
+> --region us-east1 --min-instances 0`.
+
+A fresh GCP project's default compute service account has no role bindings, so
+the first `--source` deploy fails with `storage.objects.get` denied on the
+`run-sources-*` bucket. `roles/run.builder` on
+`PROJECT_NUMBER-compute@developer.gserviceaccount.com` is what fixed it.
 
 Cloud Run's own revision history is the mechanism §2.2 leans on when it requires
-the service to identify its deployed revision. The `Health` model in
-`nearmiss/models.py` is short of FR-019 — no revision field, no source count — and
-no handler exists to serve it either way. Shape: [[06-Data-Model]]. Endpoint
-contract: [[05-API-Contracts]].
+the service to identify its deployed revision. `Health` in `nearmiss/models.py`
+now carries `git_revision` and `source_count`, supplied at deploy time via
+`--set-env-vars GIT_REVISION=...` — a `--build-arg` cannot survive a `--source`
+build. Shape: [[06-Data-Model]]. Endpoint contract: [[05-API-Contracts]].
 
 ---
 Related: [[00-Source-of-Truth-PRD|PRD]] §2.2 · §11.1 · §16.1 · §29 · FR-019 · NFR-001 · NFR-002 · NFR-003 · NFR-006 · NFR-012 · [[06-Hackathon-Compliance-Checklist]] · [[05-Demo-Reliability]] · [[07-Provider-Adapters]] · [[05-API-Contracts]] · [[06-Data-Model]] · [[09-Observability]]
