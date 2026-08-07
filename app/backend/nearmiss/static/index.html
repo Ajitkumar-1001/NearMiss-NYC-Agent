@@ -1,0 +1,317 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NearMiss NYC</title>
+<style>
+  :root {
+    --bg: #0d1117; --panel: #161b22; --line: #30363d;
+    --fg: #e6edf3; --dim: #8b949e;
+    --high: #f85149; --med: #d29922; --ok: #3fb950; --accent: #58a6ff;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--fg);
+    font: 15px/1.55 ui-sans-serif, -apple-system, "Segoe UI", sans-serif;
+  }
+  .wrap { max-width: 1100px; margin: 0 auto; padding: 24px 20px 60px; }
+
+  /* ---- 1. Source and Mode Header (PRD §11.3 surface 1) ---- */
+  header { border-bottom: 1px solid var(--line); padding-bottom: 16px; margin-bottom: 20px; }
+  h1 { font-size: 22px; margin: 0 0 4px; letter-spacing: -0.01em; }
+  .tag { color: var(--dim); font-size: 13px; margin: 0; }
+  .badges { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+  .badge {
+    font: 600 11px/1 ui-monospace, SFMono-Regular, Menlo, monospace;
+    text-transform: uppercase; letter-spacing: .06em;
+    padding: 6px 9px; border-radius: 5px;
+    border: 1px solid var(--line); background: #0b0f14; color: var(--dim);
+  }
+  .badge b { color: var(--fg); font-weight: 600; }
+  .badge.mode { border-color: var(--accent); color: var(--accent); }
+
+  /* ---- 6. Primary Actions (surface 6) ---- */
+  .actions { display: flex; flex-wrap: wrap; gap: 10px; margin: 18px 0 22px; }
+  button {
+    font: 600 14px/1 inherit; padding: 11px 16px; border-radius: 7px;
+    border: 1px solid var(--line); background: var(--panel); color: var(--fg);
+    cursor: pointer;
+  }
+  button:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
+  button:disabled { opacity: .5; cursor: progress; }
+  button.primary { background: #1f6feb; border-color: #1f6feb; color: #fff; }
+  button.primary:hover:not(:disabled) { background: #388bfd; color: #fff; }
+
+  .grid { display: grid; gap: 16px; grid-template-columns: 1fr 1fr; }
+  @media (max-width: 860px) { .grid { grid-template-columns: 1fr; } }
+  .card {
+    background: var(--panel); border: 1px solid var(--line);
+    border-radius: 9px; padding: 16px; min-width: 0;
+  }
+  .card.full { grid-column: 1 / -1; }
+  h2 {
+    font-size: 11px; text-transform: uppercase; letter-spacing: .08em;
+    color: var(--dim); margin: 0 0 12px; font-weight: 700;
+  }
+
+  /* ---- 3. Evidence Card (surface 3) ---- */
+  .score { display: flex; align-items: baseline; gap: 10px; margin-bottom: 4px; }
+  .score b { font-size: 44px; line-height: 1; letter-spacing: -0.03em; }
+  .sev { font: 700 11px/1 monospace; text-transform: uppercase; letter-spacing: .08em;
+         padding: 5px 8px; border-radius: 5px; }
+  .sev.high { background: rgba(248,81,73,.15); color: var(--high); }
+  .sev.medium { background: rgba(210,153,34,.15); color: var(--med); }
+  .sev.low { background: rgba(63,185,80,.15); color: var(--ok); }
+  .proxy { color: var(--dim); font-size: 12px; margin: 8px 0 16px; }
+
+  .factor { margin-bottom: 10px; }
+  .factor-top { display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 4px; }
+  .factor-top span:last-child { font-family: ui-monospace, monospace; color: var(--dim); }
+  .bar { height: 6px; background: #0b0f14; border-radius: 3px; overflow: hidden; }
+  .bar i { display: block; height: 100%; background: var(--accent); border-radius: 3px; }
+
+  dl { margin: 0; display: grid; grid-template-columns: auto 1fr; gap: 6px 14px; font-size: 13px; }
+  dt { color: var(--dim); }
+  dd { margin: 0; font-family: ui-monospace, monospace; }
+
+  ul { margin: 0; padding-left: 18px; }
+  li { margin-bottom: 7px; font-size: 14px; }
+  li:last-child { margin-bottom: 0; }
+
+  .note {
+    font-size: 13px; padding: 9px 11px; border-radius: 6px; margin-bottom: 7px;
+    background: rgba(210,153,34,.08); border-left: 3px solid var(--med); color: #e3c07b;
+  }
+  .rec {
+    margin-top: 14px; padding: 11px 13px; border-radius: 6px;
+    background: rgba(88,166,255,.08); border-left: 3px solid var(--accent); font-size: 14px;
+  }
+  .privacy { border-left: 3px solid var(--ok); background: rgba(63,185,80,.07);
+             padding: 11px 13px; border-radius: 6px; font-size: 13px; margin-top: 12px; }
+
+  /* ---- 2. Vision Canvas (surface 2) ---- */
+  canvas { width: 100%; height: auto; display: block; border-radius: 6px; background: #05080c; }
+  .legend { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 10px; font-size: 12px; color: var(--dim); }
+  .legend i { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 5px; }
+
+  .msg { padding: 14px; border-radius: 8px; font-size: 14px; }
+  .msg.err { background: rgba(248,81,73,.1); border: 1px solid var(--high); color: #ffa198; }
+  footer { margin-top: 28px; color: var(--dim); font-size: 12px; }
+  a { color: var(--accent); }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <h1>NearMiss NYC</h1>
+    <p class="tag">See the risk before it becomes a crash statistic.</p>
+    <div class="badges" id="badges"></div>
+  </header>
+
+  <div class="actions">
+    <button class="primary" id="btn-live">Analyze live source</button>
+    <button id="btn-demo">Replay evidence case</button>
+  </div>
+
+  <div id="out"><div class="msg">Loading…</div></div>
+
+  <footer>
+    Risk is an <b>image-space visual conflict proxy</b>, not a crash probability.
+    Decision support for human review — never enforcement.
+    <a href="/docs">API docs</a> ·
+    <a href="https://github.com/Ajitkumar-1001/NearMiss-NYC-Agent">Source</a>
+  </footer>
+</div>
+
+<script>
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const title = s => String(s).replace(/_/g, ' ').replace(/^./, c => c.toUpperCase());
+const CLR = { person:'#f85149', bicycle:'#d29922', motorcycle:'#db6d28',
+              car:'#58a6ff', bus:'#a371f7', truck:'#39c5cf' };
+
+// Surface 1: the header badges describe provenance and which rung actually served.
+async function health() {
+  try {
+    const h = await (await fetch('/health')).json();
+    $('#badges').innerHTML = `
+      <span class="badge">Service <b>${esc(h.status)}</b></span>
+      <span class="badge">Revision <b>${esc(h.git_revision || 'local')}</b></span>
+      <span class="badge">v<b>${esc(h.version)}</b></span>
+      <span class="badge">Sources <b>${h.source_count}</b></span>`;
+  } catch { /* header is decoration; the report below is the product */ }
+}
+
+function render(d) {
+  if (d.no_conflict) return noConflict(d);
+  if (!d.event) return `<div class="msg err">Malformed response: neither event nor no_conflict.</div>`;
+  const e = d.event, f = e.risk_factors;
+
+  const factors = Object.entries(f).map(([k, v]) => `
+    <div class="factor">
+      <div class="factor-top"><span>${esc(title(k))}</span><span>${v.toFixed(3)}</span></div>
+      <div class="bar"><i style="width:${(v * 100).toFixed(1)}%"></i></div>
+    </div>`).join('');
+
+  const ctx = e.historical_context ? `
+    <dl>
+      <dt>Source</dt><dd>${esc(e.historical_context.source)}</dd>
+      <dt>Nearby collisions</dt><dd>${e.historical_context.nearby_collision_count}</dd>
+      <dt>Radius</dt><dd>${e.historical_context.radius_meters} m</dd>
+      <dt>Retrieved</dt><dd>${esc(e.historical_context.retrieved_at)}</dd>
+    </dl>
+    <p class="proxy">Historical correlation only — never causal proof of this event.</p>`
+    : `<p class="proxy">No historical context available for this location.</p>`;
+
+  return `
+  <div class="badges" style="margin-bottom:16px">
+    <span class="badge mode">Mode <b>${esc(title(e.processing_mode))}</b></span>
+    <span class="badge">Event <b>${esc(e.event_id)}</b></span>
+    <span class="badge">Type <b>${esc(title(e.event_type))}</b></span>
+    <span class="badge">Vision <b>${esc(e.providers.vision)}</b></span>
+    <span class="badge">Tracker <b>${esc(e.providers.tracker)}</b></span>
+    <span class="badge">Context <b>${esc(e.providers.context)}</b></span>
+    <span class="badge">Explanation <b>${esc(e.providers.explanation)}</b></span>
+  </div>
+
+  ${d.notices.map(n => `<div class="note">${esc(n)}</div>`).join('')}
+
+  <div class="grid">
+    <div class="card full">
+      <h2>Vision canvas — image-space evidence</h2>
+      <canvas id="cv" width="${e.overlay.frame_width}" height="${e.overlay.frame_height}"></canvas>
+      <div class="legend" id="legend"></div>
+    </div>
+
+    <div class="card">
+      <h2>Evidence</h2>
+      <div class="score">
+        <b>${e.risk_score.toFixed(1)}</b>
+        <span class="sev ${esc(e.severity)}">${esc(e.severity)}</span>
+      </div>
+      <p class="proxy">Visual conflict proxy, 0–100. Not a crash probability.</p>
+      ${factors}
+      <dl style="margin-top:14px">
+        <dt>Participants</dt><dd>${e.participants.map(p => `#${p.track_id} ${esc(p.class_name)}`).join(' · ')}</dd>
+        <dt>Window</dt><dd>${e.time_window.start_seconds.toFixed(1)}s – ${e.time_window.end_seconds.toFixed(1)}s</dd>
+        <dt>Location</dt><dd>${esc(e.location.label)}</dd>
+      </dl>
+    </div>
+
+    <div class="card">
+      <h2>Context and explanation</h2>
+      <ul>${e.observations.map(o => `<li>${esc(o)}</li>`).join('')}</ul>
+      <div class="rec"><b>Recommended action.</b> ${esc(e.recommended_action)}</div>
+      ${ctx}
+      ${e.explanation_confidence != null
+        ? `<p class="proxy">Explanation confidence ${(e.explanation_confidence * 100).toFixed(0)}%</p>` : ''}
+    </div>
+
+    <div class="card full">
+      <h2>Limitations and privacy</h2>
+      <ul>${e.limitations.map(l => `<li>${esc(l)}</li>`).join('')}</ul>
+      <div class="privacy">
+        No identity recognition and no biometric processing. Road users are anonymous
+        class-labelled boxes; track IDs are local to this sequence and are never
+        correlated across clips. No footage or personal data is persisted.
+      </div>
+    </div>
+  </div>`;
+}
+
+function noConflict(d) {
+  const n = d.no_conflict;
+  return `
+  <div class="badges" style="margin-bottom:16px">
+    <span class="badge mode">Mode <b>${esc(title(n.processing_mode))}</b></span>
+  </div>
+  ${d.notices.map(x => `<div class="note">${esc(x)}</div>`).join('')}
+  <div class="card">
+    <h2>No candidate conflict</h2>
+    <p>${esc(n.message)}</p>
+    <dl>
+      <dt>Threshold</dt><dd>${n.threshold}</dd>
+      <dt>Pairs evaluated</dt><dd>${n.pairs_evaluated}</dd>
+      <dt>Highest score</dt><dd>${n.highest_score == null ? '—' : n.highest_score.toFixed(1)}</dd>
+    </dl>
+    <p class="proxy">A no-conflict result is a valid outcome. The system does not
+    manufacture an event for presentation.</p>
+  </div>`;
+}
+
+// Surface 2. Draws tracks as trails and detections as boxes, in the frame's own
+// pixel space — the canvas is sized to frame_width/height so no rescaling maths
+// is needed here; CSS handles the display scaling.
+function drawOverlay(e) {
+  const cv = $('#cv'); if (!cv) return;
+  const g = cv.getContext('2d');
+  const flagged = new Set(e.participants.map(p => p.track_id));
+
+  g.fillStyle = '#05080c';
+  g.fillRect(0, 0, cv.width, cv.height);
+
+  g.strokeStyle = '#1c2430'; g.lineWidth = 1;
+  for (let x = 0; x < cv.width; x += 80) { g.beginPath(); g.moveTo(x, 0); g.lineTo(x, cv.height); g.stroke(); }
+  for (let y = 0; y < cv.height; y += 80) { g.beginPath(); g.moveTo(0, y); g.lineTo(cv.width, y); g.stroke(); }
+
+  for (const d of e.overlay.detections) {
+    const [x1, y1, x2, y2] = d.bbox;
+    g.strokeStyle = (CLR[d.class_name] || '#8b949e') + '55';
+    g.lineWidth = 1.5;
+    g.strokeRect(x1, y1, x2 - x1, y2 - y1);
+  }
+
+  for (const t of e.overlay.tracks) {
+    const pts = t.centroid_history;
+    if (!pts.length) continue;
+    const col = CLR[t.class_name] || '#8b949e';
+    const hot = flagged.has(t.track_id);
+
+    g.strokeStyle = col; g.lineWidth = hot ? 4 : 2;
+    g.globalAlpha = hot ? 1 : 0.45;
+    g.beginPath();
+    pts.forEach((p, i) => i ? g.lineTo(p.x, p.y) : g.moveTo(p.x, p.y));
+    g.stroke();
+    g.globalAlpha = 1;
+
+    const last = pts[pts.length - 1];
+    g.fillStyle = col;
+    g.beginPath(); g.arc(last.x, last.y, hot ? 9 : 5, 0, 6.284); g.fill();
+
+    g.fillStyle = '#fff';
+    g.font = 'bold 15px ui-monospace, monospace';
+    g.fillText(`${t.class_name} #${t.track_id}`, last.x + 13, last.y + 5);
+  }
+
+  const kinds = [...new Set(e.overlay.tracks.map(t => t.class_name))];
+  $('#legend').innerHTML =
+    kinds.map(k => `<span><i style="background:${CLR[k] || '#8b949e'}"></i>${esc(k)}</span>`).join('') +
+    `<span>Bold trails are the flagged pair · thin boxes are per-frame detections</span>`;
+}
+
+async function load(url, opts) {
+  for (const b of document.querySelectorAll('button')) b.disabled = true;
+  $('#out').innerHTML = `<div class="msg">Analyzing…</div>`;
+  try {
+    const r = await fetch(url, opts);
+    const d = await r.json();
+    if (!r.ok) throw new Error(d.detail || `HTTP ${r.status}`);
+    $('#out').innerHTML = render(d);
+    if (d.event) drawOverlay(d.event);
+  } catch (err) {
+    $('#out').innerHTML = `<div class="msg err">${esc(err.message)}</div>`;
+  } finally {
+    for (const b of document.querySelectorAll('button')) b.disabled = false;
+  }
+}
+
+$('#btn-demo').onclick = () => load('/api/v1/demo');
+$('#btn-live').onclick = () => load('/api/v1/live/demo_fixture/analyze', { method: 'POST' });
+
+health();
+load('/api/v1/demo');
+</script>
+</body>
+</html>

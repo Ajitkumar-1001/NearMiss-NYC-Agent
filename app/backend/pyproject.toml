@@ -20,5 +20,11 @@ build-backend = "setuptools.build_meta"
 [tool.setuptools.packages.find]
 include = ["nearmiss*"]
 
+# Load-bearing. The dashboard is a package data file, not a module, so without
+# this it is dropped by `pip install` and `GET /` 500s in the container while
+# working fine from a source checkout.
+[tool.setuptools.package-data]
+nearmiss = ["static/*.html"]
+
 [tool.pytest.ini_options]
 testpaths = ["../../tests"]

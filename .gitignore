@@ -44,3 +44,4 @@ venv/
 # vault/05-SpecKit/ prompt notes instead; .specify/memory/constitution.md is an
 # unfilled template and would be a second, competing constitution.
 .specify/
+.gstack/

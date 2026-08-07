@@ -12,10 +12,11 @@ from __future__ import annotations
 
 import logging
 import os
+from pathlib import Path
 
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import JSONResponse
+from fastapi.responses import FileResponse, JSONResponse
 
 from . import __version__, sources
 from .config import settings
@@ -64,6 +65,20 @@ async def _unhandled(request: Request, exc: Exception) -> JSONResponse:
         status_code=500,
         content={"detail": "The service failed to complete this request."},
     )
+
+
+_INDEX = Path(__file__).parent / "static" / "index.html"
+
+
+@app.get("/", include_in_schema=False)
+def dashboard() -> FileResponse:
+    """PRD §11.3's six judge-facing surfaces, in one static page.
+
+    Served from this service rather than a separate frontend deployment: §16.1
+    leaves the dashboard's location open and §2.2 puts only this service on the
+    eligibility gate. One origin means one deploy to verify before the freeze.
+    """
+    return FileResponse(_INDEX)
 
 
 @app.get("/health", response_model=Health)
